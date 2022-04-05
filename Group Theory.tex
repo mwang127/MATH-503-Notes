@@ -38,6 +38,7 @@
 \DeclareMathOperator{\Free}{Free}
 \DeclareMathOperator{\St}{St}
 \DeclareMathOperator{\Aff}{Aff}
+\DeclareMathOperator{\Fix}{Fix}
 \hypersetup{
 	colorlinks=true,
 	linktoc=all,
@@ -1686,5 +1687,94 @@ Show as an exercise that for a subgroup $H\leq G$, we define $G/H$ to be the set
 \end{proof}
 \begin{cor}
 	$|O(s)|=[G:\St(s)]$, and if $G$ is finite, then $|O(s)=\frac{|G|}{|\St(s)|}|$.
+\end{cor}
+\section{Mar. 7}
+\begin{thm}
+	Let a group $G$ act on a set $X$. For any $s\in X$, the action of $G$ on the orbit $o(s)$ is equivalent to the action of $G$ on the left cosets of $\St(s)$; i.e., $G/\St(s)$.
+	
+	In particular, $|O(s)|=[G:\St(s)]$. If $G$ is finite then $|O(s)|=\frac{|G|}{|\St(s)|}$.
+\end{thm}
+\begin{cor}
+	Any translation action is equivalent to the action of $G$ on $G/H$, with left multiplcaition for some $H\subseteq G$.
+\end{cor}
+\begin{note}
+	In the action of $G$ on $G/H$, we have
+	\begin{enumerate}
+		\item $\St(eH)=H$
+		\item the kernel of the action, $\bigcap\limits_{g\in G}gHg^{-1}$ is the largest normal subgroup of $G$ contained in $H$.
+	\end{enumerate}
+\end{note}
+Show as an exercise that the action of $G$ on $G/H$ and $G/K$ are equivalent iff $H$ and $K$ are conjugate in $G$.
+\begin{definition}
+	A point $s\in X$ is called a \emph{fixed point} if $O(s)=\{s\}$; i.e., $\St(s)=G_s=G$.
+\end{definition}
+\begin{definition}
+	For any subset $Y\subseteq G$, the fixed pints of $Y$, $\Fix(Y)=\{s\in X:gs=s\text{ for all }g\in Y\}$
+\end{definition}
+As an exercise, show that $\Fix(Y)=\Fix(\langle Y\rangle)$.
+
+\begin{note}
+	For $G$ acting on $X$, we have
+	\begin{enumerate}
+		\item if $H\leq G$ then $H$ acts on $X$.
+		\item If $Y\subseteq X$ is $G$-stable ($\St(Y)=G$), then $G$ acts on $Y$.
+		\item this action induces an action on the power set of $X$, $P(X)$ (the set of all subsets of $X$) by $g\cdot Y=\{gy:y\in Y\}$ (Note that $g\emptyset=\emptyset$).
+		\item For each $k\leq |X|$, the set of all subsets of size $k$, $P_k(X)$ is $G$-stable, so $G$ acts on $P_k(X)$
+	\end{enumerate}
+\end{note}
+\begin{example}
+	$G=S_n$ acts on $X=\{1,2,...,n\}$, so it acts on $P_k(X)$. This action is transitive so it extends to a partition of $X$.
+	
+	We note that $\St(\{1,2...,k\})\cong S_k\times S_{n-k}$. So, $|P_k(X)|=\frac{|S_n|}{|S_k\times S_{n-k}|}=\frac{n!}{k!(n-k)!}=\binom{n}{k}$.
+\end{example}
+Let $n=p^km$, $p$ a prime, $k>9$. Let $\pi\in S_n$ be 
+$$\begin{pmatrix}
+	1&\dots&p^k&p^k+1&\dots&2p^k & \dots &(m-1)p^k+1&\dots&mp^k\\
+	2&\dots &1&p^k+2&\dots &p^k+1&\dots &(m-1)p^k+2&\dots&(m-1)p^k+1
+	
+\end{pmatrix}$$
+We note that $|\pi|=p^k$ and $\pi^m(1)=m+1$ for $m<p^k$. So, $\langle \pi\rangle\subseteq S_n$ has order $p^k$ and acts on $P_{p^k}(X)$.  What are the fixed points of this action? THe fixed points are exactly the fixed points of $\pi$ and are $\{1,2,...,p^k\}, \{p^{k+1},...,2p^k\},\{(m-1)p^k+1,...,mp^k\}$.
+
+Every orbit of $\langle \pi\rangle $ other than the fixed points on $P_{p^{k}}(X)$ will have size a positive power of $p$, hence divisible by $p$. so $|P_{p^k}(X)|=m+Ap$?
+
+Thus, $\binom{p^km}{p^k}\equiv m(\mod p)$.
+
+Give a ``direct'' proof of this thm as an exercise.
+\begin{cor}
+	If $p\not|m$, then $p\not| \binom{p^km}{p^k}$.
+\end{cor}
+\begin{note}
+	Let $|G|=p^km$, $p\not|m$, $p$ a prime, $k>0$. Then $G$ acts on itself by left multiplication $X=G=G/\{e\}$, so it acts on $P_{p^k}(G)$. But $p\not| \binom{p^km}{p^k}=|P_{p^k}(G)|$.
+	
+	So at least one orbit $O(A)$ has size not divisible by $p$. If $p\not|O(A)$, then $|\St(A)|=\frac{G}{O(A)}\geq p^k$, but $|\St(A)|\leq |A|=p^k$ as if $a\in A$, then $\St(A)\cdot a\subseteq A$.
+	
+	Thus, $|\St(A)|=p^k$.
+\end{note}
+\begin{thm}[Sylow]
+	If $|G|=p^km$ and $p\not|m$, then $G$ has a subgroup of order $p^k$.
+\end{thm}
+Any such subgroup is called a \emph{Sylow $p$-subgroup} of $G$.
+
+We have three basic rules for a finite group $G$ acting on a finite set $X$.
+\begin{thm}
+	We have three basic rules for a finite group $G$ acting on a finite set $X$.
+	\begin{enumerate}
+		\item If $G$ acts transitively on $X$, then $|X|=\frac{|G|}{|\St(s)|}$ for any $s\in X$.
+		\item If $p$ is a prime and $p\not||X|$, then $p\not||O(s)|$ for some $s\in X$.
+		\item If $|G|=p^r$, $p$ a prime and $r>0$ amd $|\Fix(G)|=f$, then $|X|\equiv f(\mod p)$.
+	\end{enumerate}
+	In particular, if $p\not||X|$, then $f>0$, so there is a fixed point. and if $p||X|$ and $f>0$, then $f>p$ so we have at least $p$ fixed points.
+\end{thm}
+\begin{thm}[Cauchy]
+	If $G$ is a finite group $p||G|$ with $p$ a prime. Then $G$ has an element of order $P$.
+\end{thm}
+\begin{proof}
+	Let $|G|=p^km$, $k>0$ and $p\not|m$. Then $G$ has a subgroup $P$ of size $p^k$. Take $1\not=a\in P$. Then $O(a)$ is a power of $p$. So some power of $a$ has order $p$.
+\end{proof}
+\begin{definition}
+	A group $P$ is a \emph{$p$-group} if every element of $P$ is of finite order = power of $p$
+\end{definition}
+\begin{cor}
+	A finite group is a $p$-group iff $|G|$ is a power of $p$.
 \end{cor}
 \end{document}
