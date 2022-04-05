@@ -39,6 +39,7 @@
 \DeclareMathOperator{\St}{St}
 \DeclareMathOperator{\Aff}{Aff}
 \DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\Syl}{Syl}
 \hypersetup{
 	colorlinks=true,
 	linktoc=all,
@@ -1777,4 +1778,102 @@ We have three basic rules for a finite group $G$ acting on a finite set $X$.
 \begin{cor}
 	A finite group is a $p$-group iff $|G|$ is a power of $p$.
 \end{cor}
+\section{Mar. 9}
+\begin{thm}
+	Let $G$ be a finite group acting on a finite set $X$.
+	\begin{enumerate}
+		\item If $G$ acts transitively on $X$, then $|X|=\frac{|G|}{|\St(s)|}$ for any $s\in X$.
+		\item If $p$ is a prime and $p\not||X|$, then $p\not||O(s)|$ for some $s\in X$.
+		\item If $|G|=p^r$, $p$ a prime and $r>0$ amd $|\Fix(G)|=t$, then $|X|\equiv t(\mod p)$.
+	
+	In particular, if $p\not||X|$, then $t>0$, so there is a fixed point. and if $p||X|$ and $t>0$, then $t\geq p$ so we have at least $p$ fixed points.
+		\item $|X|=\sum_{\text{orbits O}}|O|=\sum_{\text{orbits}}\frac{|G|}{|\St(s)|}$.
+		\end{enumerate}
+\end{thm}
+\begin{thm}
+	If $|G|=p^km$, $p$ a prime, $k>0$ and $p\not|m$, then $G$ has a subgroup of order $p^k$.
+\end{thm}
+\begin{thm}[Cauchy]
+	If $G$ is a finite group, $p||G|$ with $p$ a prime. Then $G$ has an element of order $P$.
+\end{thm}
+\begin{cor}
+	A finite group is a $p$-group iff the size of $P$, $|P|$ is a power of $p$.
+\end{cor}
+\begin{note}
+	We consider the following ``key'' action.
+	
+	Any group $G$ acts on itself by conjugation: $g\star s=gsg^{-1}$ ($G\to \Aut(G)\subseteq S(G)$).
+	
+	$G$ acts on $P_{k}(G)$ for all $k$. The set of fixed points are normal subgroups. 
+	
+	Orbits of this action on $G$ are called \emph{conjugacy classes} and fixed points are exactly those elements in the center of $G$.
+\end{note}
+\begin{definition}
+	For $X\in G$, the \emph{normalizer} of $X$ in $G$, $N_G(X)=\St(X)$ under the conjugation action.
+	
+	The \emph{centralizer} of $X$ in $G$, $C_G(X)=G_X$.
+\end{definition}
+
+If $H\leq G$, then $H$ is normal in $N_G{H}$.
+
+In particular, $G$ acts on the set $\Syl_p(G)$ of all sylow $p$-subgroups of $G$.
+
+\begin{note}
+	Let $|G|=p^km$ where $p$ a prime, $k>0$, $p\not|m$. Then $G$ acts on $\Syl_p(G)$ by conjugation.
+	
+	Take $P\in \Syl_p(G)$ and $Q\leq G$ where $Q$ is some power of $p$.
+	
+	$Q$ acts on the orbit $O(P)$.
+	
+	Take a $G$-orbit of $P$, $O(P)$. We have
+	\begin{enumerate}
+		\item $\St(P)=N_G(P)\supseteq P$, so $p^k||N_G(P)|$ and since $|O(p)|=\frac{|G|}{|N_G(P)|}$, so we have $p\not\vert |O(P)|$
+		\item consider the action of $Q$ on $O(P)$. $|Q|$ is some power of $p$ and $p\not||O(P)|$, so there exists a fixed point.
+	\end{enumerate}
+	
+	Then, we can take $P_1\in O(P)\st Q$ fixes $P_1$; i.e., $Q\leq N_G(P_1)$ so $Q\subseteq P_1$.
+\end{note}
+\begin{cor}
+	If $Q\in\Syl_p(G)$, then $Q=P_1$; i.e., $Q\in O(P)$.
+\end{cor}
+
+So, $G$ acts transitively on $\Syl_p(G)$.
+
+Also, $Q$ has only 1 fixed point: $Q$ itself. So, $|\Syl_p(G)|\equiv 1 (\mod p)$.
+\begin{thm}[Sylow]
+	Let $|G|=p^km$ where $p$ a prime, $k>0$, $p\not|m$.
+	\begin{enumerate}
+		\item $G$ has at least one subgroups of order $p^k$ (Sylow $p$-subgroup).
+		\item All Sylow $p$-subgroups are conjugate.
+		\item Let $t_p=|\Syl_p(G)|$. Then $t_p\equiv 1(\mod p)$ and $t_p|m$.
+		\item Any $p$-subgroup of $G$ is contained in a Sylow $p$-subgroup.
+	\end{enumerate}
+\end{thm}
+Note that $t_p=1$ iff $G$ has a normal Sylow $p$-subgroup.
+$$P\hookrightarrow G\twoheadrightarrow G/P$$
+and $G\cong P\rtimes G/P$
+\begin{example}[Groups of order $pq$, $p<q$ primes]
+	Let $|G|=pq$. Let's look at $\Syl_q(G)$. Since $t_q|p$ and $t_q\equiv 1(\mod q)$, we have $t_q=1$ as $p<q$.
+	
+	So, $G$ has a normal Sylow $p$-subgroup $Q$. $Q$ is cyclic of order $q$.
+	
+	By Cauchy, $G$ has an element $a$ of order $p$ and $H=\langle a\rangle\in\Syl_p(G)$ is a cyclic subgroup of order $p$ in $G$. Look at $t_p$, if $t_p=1$, then $H\unlhd G$, so $G\cong Q\times H$.
+	
+	If $t_p=q$, then $t_p=q\equiv 1(\mod p)$.
+	
+	So if $q\not\equiv 1(\mod p)$, then the only finite group of order $pq$ is $\Z/p\Z\times\Z/q\Z\cong\Z/pq\Z$.
+	
+	If $q\equiv 1(\mod p)$, then $\Aut(Q)=\Aut(\Z/p\Z)\cong (\Z/p\Z)^\times$ which is the cyclic group of order $q-1$. So it has a unique subgroup of order $p$ as ($p|q-1$).
+	
+	Take $\phi:H=\Z/p\Z\hookrightarrow\Aut(\Z/q\Z)$. Then $Q\rtimes_\phi H$ is a non-abelian group of order $pq$.
+\end{example}
+
+As an exercise, show that all possible $\phi$ gives the same group $G=\Z/p\Z\rtimes_\phi \Z/q\Z$.
+\begin{cor}
+	Every group of order $p^2$ is abelian.
+\end{cor}
+
+Our goal is to study $p$-groups.
+
+$P$ a $p$-group. It acts on itself by conjugations. $e$ is a fixed point, so $|Fix(P)|\geq p$. Here, $\Fix(P)=Z(P)$.
 \end{document}
