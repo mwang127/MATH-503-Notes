@@ -1298,11 +1298,103 @@ Here, $h(g,s)^{-1}=s^{-1}g^{-1}t=h(g^{-1},t)$.
 \begin{definition}
 	Let $G=\Free(X)$, $H\leq G$. A set $S$ is called a Schreier set for $H$ if it is a set of left coset representatives for $H$ in $G$ and if a reduced word $x_1^{\epsilon_1}\mu\in S$, then also $\mu\in S$. (with any reduced word in $S$, all its final sequences are in $S$). 
 \end{definition}
-
-
-
-
 \section{Feb. 25}
+\begin{thm}[Nielson-Schrier]
+A subgroup of a free group is free.
+\end{thm}
+\begin{proof}[Outline of Proof]
+	$G=\Free(X)$ a free group. $H\leq G$. $S$ a Schrier set for $H$ ($S$ is a left coset representative for $H\st$ if a reduced word is in $S$, then all its final segments are in $S$). 
+	
+	Given $x\in X$, $s\in S$, there is one unique $t\in S\st h(x,s)\in H\st t^{-1}xs=h(xs)$. Let $Y=\{h(x,s):x\in X,s\in S,h(x,s)\not=e\}$ We look at a reduced word $h(x_1,a_1)^{\epsilon_1}...h(x_n,a_n)^{\epsilon_n}=$
+	$$t_1^{-1}x_1^{\epsilon_1}s_1t_2^{-1}x_2^{\epsilon_2}s_2...t_n^{-1}x_n^{\epsilon_n}s_n$$
+	
+	Here, each $t_i^{-1}x_i^{\epsilon_i}s_i$ is a reduced word and study possible collections in $t_i^{-1}x_i^{\epsilon_i}s_i$ show that all the letters $x_i^{\epsilon_i}$ will survive, so this element is not $\emptyset$.
+	
+	Note that $h(x,s)=e\iff xs\in S$.
+\end{proof}
+	As an exercise, show that if $|X|=k$ and $|S|=[G:H]<\infty$, then $h(x,s)=e$ for exactly $[G:H]-1$ pairs $(x,s)$, so $|Y|=k[G:H]-[G:H]+1=(k-1)[G:H]+1$.
+
+\begin{thm}
+	A subgroup of index $n$ in a free group of rank  $k$ is free of rank $(k-1)n+1$.
+\end{thm}
+As an exercise, find a Schrerier set for the commutator subgroup of $\Free(\{a,b\})$. Show that if $N\unlhd \Free(X)$ and $[\Free(X):N]=\infty$ and $N\not=\{e\}$, then $N$ is not finitely generated. Also, let $F_1,F_2$ be free subgroups of $G$ s.t. $[G:F_1]=[G:F_2]<\infty$, show that they have the same rank.
+\begin{definition}
+	$G$ a group. 
+	\begin{enumerate}
+		\item The \emph{center} of $G$, $Z(G)=\{a\in G:[g,a]=e\text{ for all }g\in G\}$. Note that $[h,g]=hgh^{-1}g^{-1}$.
+		We always have $Z(G)\unlhd G$.
+		\item $[G,G]=G'=\langle \{[h,g]:h,g\in G\}\rangle$ is the \emph{derived group} of $G$, also called the \emph{commutator subgroup} of $G$.
+	\end{enumerate}
+\end{definition}
+\begin{thm}
+	Let $f:G\to A$ be a homomorphism to an abelian group. Then $f([h,g])=e$ for any $h,g\in G$.
+\end{thm}
+\begin{thm}
+	$[G,G]$ is normal in $G$.
+\end{thm}
+\begin{proof}
+	We have $a[h,g]a^{-1}=[aha^{-1},aga^{-1}]\in[G,g]$.
+\end{proof}
+\begin{definition}
+	The \emph{abelianization} of $G$ is $G^{ab}=G/[G,G]$. This is an abelian group.
+\end{definition}
+\begin{cor}
+	$G$ a group, $A$ abelian, $f$ a homomorphism as shown in this diagram. \begin{tikzcd}
+	G\arrow[r,"f"]\arrow[two heads, d,"\pi"']&A\\
+	G^{ab}\arrow[dotted, ur]	
+	\end{tikzcd}
+Then, $[G,G]\subseteq \ker f$.
+\end{cor}
+\begin{definition}
+	$G$ is \emph{perfect} if $G=[G:G]$;i.e., $G^{ab}=\{e\}$.
+\end{definition}
+\begin{cor}
+	$G$ is simple (has only trivial normal proper subgroup) iff $G$ is abelian or perfect.
+\end{cor}
+\begin{definition}
+	$A,b$ subsets of $G$. Then $[a,b]=\langle[a,b]:a\in A, b\in B\rangle$.
+\end{definition}
+\begin{prop}
+	If $G=KH$ where $K\unlhd G$ and $H\unlhd G$ with $K\cap H=\{e\}$, then $G\cong K\times H$.
+	
+	In particular, $[K,H]=\{e\}$
+\end{prop}
+We will now study when $G=KH$, $K\unlhd G$ and $K\cap H=\{e\}$ with no assumptions about the normality of $H$.
+
+\begin{note}
+If $K\unlhd G$, we get a homomorphism $G\to \Aut(K)$ with $g\mapsto C_g:h\mapsto ghg^{-1}$.
+
+The kernel is denoted the \emph{centralizer} of $K$ in $G$, $C_G(k)$.
+\end{note}
+
+Now, restricting this to $H$, we get $\phi: H\to \Aut(K)$. Since $G=KH$ and $K\cap H=\{e\}$, we have every $g\in G$ is uniquely expressed as $g=k\cdot h$ where $k\in K$ and $h\in H$ since  $kh=k_1h_1$ implies thta $kk_1^{-1}=h_1h^{-1}=e$.
+
+Hence, we get a bijection $G\to K\times H$ where $(kh)(k_1h_1)=k(hk_1h^{-1})=kC_h(k_1)h$.
+
+\begin{definition}
+	Given that $K,H$ groups, homomorphism $\phi:H\to \Aut(K)$, define the \emph{semidirect prodcut} of $H$ by $K$, $K\rtimes_\phi H=K\times H$ with $(k,h)\star (k_1,h_1)=(k\phi_{h}(k_1),hh_1)$.
+\end{definition}
+As an exercise, show that this is a group operation on $K\times H$.
+\begin{note}
+	$K\cong K\times\{e\}$, $H\cong \{e\}\times H$, and $hkh^{-1}=\phi_{h}(k)$.
+\end{note}
+
+\begin{example}
+	$A$ a cyclic group ($A\cong\Z/n\Z$ or $A\cong \Z$), then $A$ always has the following automorphism.
+	\begin{enumerate}
+		\item $\id: A\to A$.
+		\item $\phi:a\mapsto a^{-1}$
+	\end{enumerate}
+	
+	We note that $\{\id, \phi\}\cong \Z/2\Z$ and if we take $\eta:\Z/2\Z\to \Aut(A)$, we have $A\rtimes_\eta \Z/2\Z$ is a dihedral group. 
+\end{example}
+
+
+
+
+
+
+
 \section{Feb. 28}
 \section{Mar. 2}
 We constructs $2$ non-abelian group of order $p^3$, where $p$ is an odd prime. One is of exponent $p$, the other is of exponent $p^2$
