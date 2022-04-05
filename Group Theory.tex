@@ -37,6 +37,7 @@
 \DeclareMathOperator{\Out}{Out}
 \DeclareMathOperator{\Free}{Free}
 \DeclareMathOperator{\St}{St}
+\DeclareMathOperator{\Aff}{Aff}
 \hypersetup{
 	colorlinks=true,
 	linktoc=all,
@@ -1389,13 +1390,112 @@ As an exercise, show that this is a group operation on $K\times H$.
 	We note that $\{\id, \phi\}\cong \Z/2\Z$ and if we take $\eta:\Z/2\Z\to \Aut(A)$, we have $A\rtimes_\eta \Z/2\Z$ is a dihedral group. 
 \end{example}
 
-
-
-
-
-
-
 \section{Feb. 28}
+\begin{definition}
+	$K,H$ groups, $\phi:H\to \Aut(K)$ a homomorphism (denote $\phi_k=\phi(k)$). Then $K\rtimes_\phi H=K\times H$ as a set, with $(k,h)\cdot(k_1,h_1)=(k\phi_h(k_1),hh_1)$.
+\end{definition}
+As an exercise, show that this is a group structure on $K\rtimes_\phi H$ which is called the \emph{semi-direct} product of $H$ by $K$, we correspond $(k,0)$ with $K$ and $(0,h)$ with $H$.
+
+\begin{thm}
+	We have $K\unlhd K\rtimes_\phi H$, $H\leq K\rtimes_\phi H$, $K\cap H=\{e\}$, $K\rtimes_\phi H=KH$ and $hkh^{-1}=\phi_h(k)$.
+	
+	Conversely, if $K\unlhd G$, $H\leq G$, $K\cap H=\{e\}$, $G=KH$, then $G\cong K\rtimes_\phi H$ where $\phi:H\to\Aut(K)$ by $h\mapsto C_h$.
+\end{thm}
+\begin{example}
+	$A$ abelian. Then $\Aut(A)$ contains $id$ and $\eta:a\mapsto a^{-1}$. So we have a homomorphism $\phi:\Z/2\Z\to \Aut A$by $0\mapsto \id$ and $1\mapsto \eta$. We thus construct $A\rtimes_\phi \Z/2\Z$.
+	
+	In particular, if $A=\Z/n\Z$, we have $\Z/n\Z\rtimes \Z/2\Z\cong D_n$ and if $A=\Z$, $\Z\rtimes \Z/2\Z\cong D_\infty$.
+\end{example}
+\begin{example}
+	Take $N=\Z/p\Z\times\Z/p\Z$ where $p$ is a prime. Then $\Aut(N)=\GL_2(\Z/p\Z)$.
+	
+	Take $\eta:N\to N$ by $\eta(a,b)=(a,a+b)$; i.e., $\eta=\begin{bmatrix}
+		1&1\\0&1
+	\end{bmatrix}$
+	
+	Note that $\eta^k=\begin{bmatrix}
+		1&k\\0&1
+	\end{bmatrix}$, so that $\eta^p=\id$.
+	
+	We thus have a homomorphism $\phi:\Z/p\Z\to \Aut(N)$ by $1\mapsto \eta$ and then , we have $P=N\rtimes_\phi\Z/p\Z$.
+	
+	Note that $|P|=p^3$, $\exp(P)=p$, and $P$ is non-abelian. 
+\end{example}
+ Show as an exercise that $P\cong \langle a,b,c\ |\ a^p,b^p,c^p,cbc^{-1}a^{-1}b^{-1},[a,b],[a,c]\rangle$.
+ \begin{example}
+ 	Let $N=\Z/p^2\Z$. The map $\eta:N\to N$ by $a\mapsto (1+p)a$ is an automorphism of order $p$ since $\eta^p(a)=(1+p)^pa$ where $(1+p)^a=1+\binom{p}{1}p+\binom{p}{2}P^2+...=a+p^A\equiv 1(\mod p^2)$, so $\eta^p=\id$.
+ 	
+ 	We get a homomorphism $\phi:\Z/p\Z\to \Aut(\Z/p^{2}\Z)$ by $1\mapsto \eta$ and get $Q=(\Z/p^{2}\Z)\rtimes_\phi \Z/p\Z$.
+ 	
+ 	Note that $|Q|=p^3$, $\exp(Q)=p^2$, and $Q$ is non-abelian.
+ \end{example}
+ 
+ Show as an exercise that $Q\cong\langle a,b\ |\ a^{p^2}, b^{p}, (bab^{-1}a^{-1})^{-p}$.
+ 
+ \begin{thm}
+ 	If $p$ is an odd prime, then
+ 	\begin{enumerate}
+ 		\item Every group of order $p$ is cyclic.
+ 		\item Every group of order $p^2$ is abelian (either $\Z/p^2\Z$ or $\Z/p\Z\times \Z/p\Z$).
+ 		\item A non abelian group of order $p^3$ is isomorphic to either $P$ or $Q$.
+ 	\end{enumerate}
+ 	
+ 	Also, we have
+ 	\begin{enumerate}
+ 		\item Every group of exponent $2$ is abelian.
+ 		\item Every group of order $4$ is abelian.
+ 		\item A non-abelian group of order $8$ is isomorphic to $D_4$ or $Q_8$.
+ 	\end{enumerate}
+ \end{thm}
+ \begin{example}
+ 	$R$ a commutative ring. $R^n=N$, $\Aut(R^n)\supseteq \GL_N(R)$.
+ 	
+ 	Then $\Aff(n,R)=\{f:R^n\to R^n:f(v)=Av+w\text{ for all $v\in R^n$ and some $A\in\GL_n(R), w\in R^n$}\}$.
+ 	
+ 	We have $\Aff(n,R)\cong R^n\rtimes \GL_n(R)$.
+ \end{example}
+Given a group $G$, we want to understand $\Aut(G)$.
+\begin{definition}
+	$K\leq G$ is called \emph{characteristic} if $\phi(K)=K$ for all $\phi\in\Aut(G)$
+\end{definition}
+As an exercise show that if $K$ is characteristic, the it is normal in $G$.
+\begin{example}
+	First we have that $Z(G)$ and $[G,G]$ are characteristic in $G$.
+	
+	If $A$ abelian, then $A[n]$, $nA$ are characteristic in $A$ for all $n\in \N$. The $p$-primary component $A_p$ is also characteristic for all $p$ prime. Therefore, $T(A)$ is characteristic.
+\end{example}
+Recall that $\Inn(G)$ is all inner automorphism of $G$ $\subseteq \Aut(G)$. $\Inn(G)\cong G/Z(G)$.
+Show as an exercise that $Inn(G)\unlhd \Aut(G)$, so we can define the outer automorphisms of $G$, $\Out(G)=\Aut(G)/\Inn(G)$.
+\begin{definition}
+	$G$ is called \emph{complete} if $Z(G)=\{1\}$ and $\Aut(G)=\Inn(G)=G$.
+\end{definition}
+\begin{example}
+	$\Aut(\Z)=\Z/2\Z$.
+	
+	Consider $\Aut(D_\infty)$.
+	
+	Recall, $D_\infty=\langle T,S\ |\ S^2=e, STST \rangle$. Given any group $G$ with $a,b\st b^2=e$ and $baba=e$, there is a unique homomorphism $D_\infty\to G$ by $T\mapsto a$ and $S\mapsto b$.
+	
+	So, we have $D_\infty\to D_\infty$ by $T\mapsto T^\epsilon$ and $S\to ST^2$, to be surjective, $\epsilon=\pm 1$.
+	
+	For every $\epsilon, L$, there is one such automorphism.
+	
+	Take $\alpha:D_\infty\to D_\infty$ by $\alpha(T)=T^{-1}$ and $\alpha(S)=S$ and $\beta:D_\infty\to D_\infty$ by $\beta(T)=T$ and $\beta(S)=ST$. Then, $\Aut(D_\infty)=\langle \alpha,\beta\rangle\cong D_\infty$.
+	
+	We note that $Z(D_\infty)=\{1\}$ and $D_\infty\cong \Inn(D_\infty)\subset \Aut(D_\infty)$ and $\Out(D_\infty)=\Z/2\Z$.
+\end{example}
+Show as an exercise that $\Aut(D_n)\cong \Aff(1,\Z/n\Z)\cong (\Z/n\Z)\rtimes(\Z/n\Z)^\times$. Note here ,$\GL_1(\Z/n\Z)\subseteq \Aut(\Z/n\Z)$.
+
+
+
+
+
+
+
+
+
+
+
 \section{Mar. 2}
 We constructs $2$ non-abelian group of order $p^3$, where $p$ is an odd prime. One is of exponent $p$, the other is of exponent $p^2$
 
