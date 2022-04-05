@@ -36,6 +36,7 @@
 \DeclareMathOperator{\Inn}{Inn}
 \DeclareMathOperator{\Out}{Out}
 \DeclareMathOperator{\Free}{Free}
+\DeclareMathOperator{\St}{St}
 \hypersetup{
 	colorlinks=true,
 	linktoc=all,
@@ -1424,5 +1425,74 @@ We thus conclude that permutation representation and actions are essentially the
 \begin{definition}
 	For $s\in X$, the \emph{orbit} of $s$ is the set $O(s)=\{gs:g\in G\}$.
 \end{definition}
+\begin{prop}
+	If $s,t\in X$ then either $O(s)=O(t)$ or $O(s)\cap O(t)=\emptyset$. 
+\end{prop}
+\begin{proof}
+	If $v\in O(s)\cap O(t)$, then $v=as=bt$ for some $a,b\in G$. $O(g)\ni gs=(ga^{-1})(as)=(ga^{-1})(bt)=(ga^{-1}b)t\in O(t)$.
+	
+	Similarly, we have $O(t)\subseteq O(s)$. So, $O(s)=O(t)$.
+\end{proof}
+\begin{cor}
+The orbits of an action on $X$ partition the set $X$.	
+\end{cor}
+\begin{definition}
+	The \emph{stabilizer} of  $s\in X$ is the set $\St(s)=\{g\in G:gs=s\}$.
+\end{definition}
+\begin{prop}
+	\begin{enumerate}
+		\item $\St(s)$ is a subgroup of $G$.
+		\item $\St(gs)=g\St(s)g^{-1}$.
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	If $h\in\St(s)$, then $(ghg^{-1})(gs)=gh(s)=gs$. The converse is easy to see.
+\end{proof}
+\begin{definition}
+	Let $G$ act on $X$. For $Y\subseteq X$, define:
+	\begin{enumerate}
+		\item Stabilizer of $Y$, $\St(Y)=\{g\in G:gY=Y\}=\{g\in G:gY\in Y,g^{-1}y\in Y\text{ for all }y\in Y\}$
+		As an exercise show that $\St(Y)$ is a subgroup of $G$.
+		\item the point-wise stabilizer of $Y$, $G_Y=\{g\in G:gy=y\text{ for all }y\in Y\}=\bigcap\limits_{y\in Y}\St(Y)$.
+	\end{enumerate}
+\end{definition}
+Note that $\St(s)=\St(\{s\})=G_{\{s\}}$ and we sometimes denote it as $G_s$.
 
+Also, note that $\St(Y)$ acts on $Y$.
+\begin{definition}
+	$Y$ is $G$-stable if $\St(Y)=G$.
+\end{definition}
+\begin{note}
+\begin{enumerate}
+	\item Every orbit is $G$-stable
+	\item $Y$ is $G$-stable iff it is a union of some collection of orbits.
+\end{enumerate}	
+\end{note}
+\begin{definition}
+	The action is \emph{transitive} if it has only one orbit.
+\end{definition}
+\begin{definition}
+	Two actions of $G$ on $X$ and $Y$ are \emph{equivalent} if there is a bijection $f:X\to Y\st f(g(x))=g(f(x))$ for all $x\in X$. 
+\end{definition}
+Question: What does it mean in terms of representations?
+
+Show as an exercise that for a subgroup $H\leq G$, we define $G/H$ to be the set of all left cosets of $H$ in $G$. Then we have an action of $G$ on $G/H$ by $g(aH)=(ga)H$ and this action is transitive with $\St(eH)=H$.
+
+\begin{thm}
+	Given an action of $G$ on $X$ and $s\in X$, the action of $G$ on $O(s)$ is equivalent to the action of $G$ on the left cosets of $\St(s)$.
+\end{thm}
+\begin{proof}
+	Consider a map $G/\St(s)\to O(s)$ by $g\St(s)\to gs$.
+	
+	This map is well defined as if $g\St(s)=g_1\St(s)$, then $g_1s=gh$ for some $h\in \St(s)$ and so $g_1s=(gh)s=g(hs)=gs$.
+	
+	It is also clear that this map is surjective.
+	
+	Now, suppose that $gs=g_1s$, then $(g_1^{-1}g)s=s$, so $g_1^{-1}g\in \St(s)$. Therefore, $g_1\St(s)=g\St(s)$. So, it is bijective.
+	
+	Notice that $\phi(g(a\St(s)))=\phi(ga\St(s))=(ga)s=g(as)=g(\phi(a\St(s)))$.
+\end{proof}
+\begin{cor}
+	$|O(s)|=[G:\St(s)]$, and if $G$ is finite, then $|O(s)=\frac{|G|}{|\St(s)|}|$.
+\end{cor}
 \end{document}
