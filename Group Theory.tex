@@ -1,0 +1,1394 @@
+\documentclass{amsart}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{amsmath,amscd,amssymb}
+\usepackage{tikz-cd}
+\usepackage{ulem}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{example}[thm]{Example}
+\newtheorem{axiom}[thm]{Axiom}
+\newtheorem{note}[thm]{Note}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
+\newcommand{\F}{\mathbb F}
+\newcommand{\B}{\mathcal B}
+\newcommand{\T}{\mathcal T}
+\newcommand{\A}{\mathcal A}
+\newcommand{\D}{\mathcal D}
+\newcommand{\Power}{\mathcal P}
+\newcommand{\st}{\text{ s.t. }}
+\DeclareMathOperator{\Perm}{Perm}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\SL}{SL}
+\newcommand\bigzero{\makebox(0,0){\text{\huge0}}}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Out}{Out}
+\DeclareMathOperator{\Free}{Free}
+\hypersetup{
+	colorlinks=true,
+	linktoc=all,
+	citecolor=blue,
+	filecolor=blue,
+	filecolor=blue,
+	linkcolor=blue,
+	urlcolor=blue,
+}
+\begin{document}
+\title{Notes for MATH 503 By Prof. M. Mazur}
+\author{Pluto Wang}
+\maketitle
+\tableofcontents
+This course is an introduction to group theory: the second course in the graduate algebra sequence.
+\section{Jan. 26}
+\begin{definition}
+	Let $X$ be a set. A \emph{binary operation} on $X$ is a function $f:X\times X\to X$. We will denote $f(x,y)$ by $x\Box y$. A binary operation is said to be \emph{associative} if $(x\Box y)\Box z=x\Box(y\Box z)$.
+\end{definition}
+\begin{definition}
+	A \emph{monoid} is a set $M$ with a binary operation $\cdot$ which is associative and such that $\exists e\in M\st e\cdot m=m\cdot e=m$ for all $m\in M$.
+\end{definition}
+\begin{prop}
+	$e$ in the previous definition of monoid is unique.
+\end{prop}
+\begin{proof}
+	Let $e_1$ be another element so that $e_1\cdot m=m\cdot e_1=m$ for all $m\in M$. Then $e=e_1\cdot e=e_1$.
+\end{proof}
+We can thus uniquely define such $e$ to be the \emph{identity} element or \emph{neutral} element of $M$.
+\begin{example}
+	The natural number $\N$ with addition is a monoid, and $e=0$.
+\end{example}
+\begin{definition}
+	A \emph{group} is a monoid $G\st\forall a\in G\ \exists b\in G\st a\cdot b=e$.
+\end{definition}
+\begin{example}
+	The natural number $\N$ with addition and $e=0$ is not a group. But the integers $\Z$ with addition and $e=0$ is a group.
+\end{example}
+\begin{prop}
+	Let $G$ be a group. If $a\cdot b=0$, then $b\cdot a=e$.
+\end{prop}
+\begin{proof}
+	We have $c\in G\st b\cdot c=e$. Then $a=a\cdot e=a\cdot(b\cdot c)=(a\cdot b)\cdot c=e\cdot c=c$.
+	
+	Hence, $b\cdot a=e$.
+\end{proof}
+This also shows that $b$ is unique of $a$. We call it the inverse of $a$ and denote it $a^{-1}$. 
+\begin{definition}
+	We say that $a,b$ \emph{commute} if $ab=ba$. In a group, this is the same as $aba^{-1}b^{-1}$.
+\end{definition}
+\begin{definition}
+	The \emph{commutator} of $a\cdot b$ is $[a,b]=aba^{-1}b^{-1}$.
+	
+	Note that some books use $[a,b]=a^{-1}b^{-1}ab$ and, in general, they are different.
+\end{definition}
+\begin{definition}
+	A group $G$ is \emph{commutative} or \emph{abelian} if any two elements commute; i.e., $ab=ba$ for all $a,b\in G$.
+\end{definition}
+In abelian group, we often use additive notation; i.e., denote the operation $+$, $e=0$, and $a^{-1}=-a$.
+\begin{example}
+	These are some examples of groups.
+	\begin{enumerate}
+		\item The trivial group: $\{e\}$ where $e\cdot e=e$.
+		\item The integers $\Z$ with addition $+$.
+		\item The real $\R$ with addition $+$.
+		\item If $R$ is a ring, then $(\R,+)$ is an abelian group. Called the additive group of the ring $R$.
+		\item If $R$ is a ring, the units of $\R$ is $\R^\times=\{a\in R: ab=1=ba$ for some $b\in R\}$. This is a ring with multiplication and is called the multiplicative group of $R$.
+		\item If $K$ is a field, then the $n\times n$ matrices over $K$, $M_n(K)$, is a ring. Note that $M_n(K)^\times=\GL_n(K)$, the general linear group of degree $n$ over $K$.
+		\item We have $\Z^\times=\{1,-1\}$. So, $\GL_2(\Z)=\{\begin{bmatrix}
+			a&b\\c&d
+		\end{bmatrix}:a,b,c,d\in\Z$ and $ad-bc=\pm 1\}$ as $\begin{bmatrix}
+			a&b\\c&d
+		\end{bmatrix}^{-1}=\frac{1}{ad-bc}\begin{bmatrix}
+			d&-b\\-c&a
+		\end{bmatrix}$.
+	\end{enumerate}
+\end{example}
+\begin{definition}
+	Let $X$ be a set. Then the symmetry group of $S$, $S(X)=\Sym(X)$ is the set of all bijections $X\to X$ with composition of functions as the binary operation and $e=\id:X\to X$ by $\id(X)=X$. The inverse of $f$, $f^{-1}$ is just the inverse function of $f$ (whose existence is guaranteed by bijectivity).
+\end{definition}
+\begin{example}
+	Let $X=V$ be a vector space. Then $\GL(V)$ is the set of all linear bijections of $V$.
+\end{example}
+\begin{definition}
+	Let $X=\{1,2,...,n\}$. The symmetry group or permutation group on $n$ letter is just $S_n=S(X)$.
+\end{definition}
+Consider $X=\{a,b\}$, then $S(X)=S_2$ consists of two element, the identity map $id$, and $f:X\to X$ by $f(a)=b$ and $f(b)=a$.
+\begin{example}
+	Consider a square $ab-cd$. Let $r$ be the action of rotating $90^{\circ}$ clockwise and $s$ be the action of reflecting along the axis  across $ab$ and $cd$. Then $D_4=\{1,r,r^2,r^3,r^4,s,sr,sr^2,sr^3\}$.
+	
+	Multiplication of two actions gives a new rotation or reflecting, for example, $sr(a)=d$, $sr(b)=c$, $sr(c)=d$, and $sr(d)=a$.
+	
+	Note that we observe $rs=sr^3$, and can thus write the multiplication table as following.
+	\begin{equation*}
+		\begin{tabular}{c|cccccccc}
+			$\cdot$ & $1$&$r$&$r^2$ & $r^3$ &$s$ & $sr$ & $sr^2$& $sr^3$\\
+			\hline
+			$1$ & $1$&$r$&$r^2$ & $r^3$ &$s$ & $sr$ & $sr^2$& $sr^3$\\
+			$r$ & $r$&$r^2$&$r^3$ & $1$ &$sr^3$ & $s$ & $sr$& $sr^2$\\
+			$r^2$ & $r^2$&$r^3$&$1$ & $r$ &$sr^2$ & $sr^3$ & $s$& $sr$\\
+			$r^3$ & $r^3$&$1$&$r$ & $r^2$ &$sr$ & $sr^2$ & $sr^3$& $s$\\
+			$s$ & $s$&$sr$&$sr^2$ & $sr^3$ &$1$ & $r$ & $r^2$& $r^3$\\
+			$sr$ & $sr$&$sr^2$&$sr^3$ & $s$ &$r^3$ & $1$ & $r$& $r^2$\\
+			$sr^2$ & $sr^2$&$sr^3$&$s$ & $sr$ &$r^2$ & $r^3$ & $1$& $r$\\
+			$sr^3$ & $sr^3$&$s$&$sr$ & $sr^2$ &$r$ & $r^2$ & $r^3$& $1$
+		\end{tabular}
+	\end{equation*}
+\end{example}
+\begin{definition}
+	Let $G$ be a group. Then a \emph{subgroup} of $G$ is a subset $H\subseteq G\st e\in H$ and if $a,b\in H$ then $ab\in H$ and $a^{-1}\in H$.
+\end{definition}
+\begin{prop}
+	With the above definition, the subgroup $H$ is also a group under the restriction of the operation on $G$ to $H$.
+\end{prop}
+Proof of this is left as an exercise to the reader.
+\section{Jan. 28}
+\begin{example}
+	The following are examples of groups:
+	\begin{enumerate}
+		\item Let $X$ be a set. Then $S(X)=\Sym(X)=\{f:X\to X: f $ is a bijection$\}$ with function composition is the symmetry group on $X$.
+		\item Take $X=\{1,...,n\}$. Then $S_n=S(X)$ is the symmetry (permutation) group on $n$ letter.
+		\item Let $S$ be a ring. Then $\GL_n(S)=M_n(S)^\times$ is all invertible $n\times n$ matrices with entries in $S$. Note that $\GL_1(S)=S^\times$.
+	\end{enumerate}
+\end{example}
+\begin{definition}
+	$S$ with two binary operations $+,\cdot$ is a (unitary) ring if\begin{enumerate}
+		\item $(S,+)$ is an abelian group
+		\item $(S,\cdot)$ is a monoid
+		\item $(a+b)\cdot c=a\cdot c+b\cdot c$ and $c\cdot (a+b)=c\cdot a+c\cdot b$.
+	\end{enumerate}
+\end{definition}
+\begin{definition}
+	Let $G$ be a group. Then $H\subseteq G$ is a subgroup if $e\in H$ and $\forall a,b\in H$, $ab\in H$ and $a^{-1}\in H$.
+	
+	Note that $e\in H$ follows from the closure under multiplication and inverse, given $H$ is nonempty.	
+\end{definition}
+\begin{example}
+	Let $G$ be a group. Then $Z(G)=\{a\in G\st \forall g\in G\  ag=ga\}$ is the center of the group. As an exercise, check it is a subgroup.
+\end{example}
+	It is easy to see that $G$ is abelian iff $G=Z(G)$.
+\begin{note}
+	One objective in group theory is to understand all subgroups of a given group $G$. Unfortunately, this is, usually, not easy.
+\end{note}
+\begin{thm}
+	A subset $S$ of $(\Z,+)$ is a subgroup iff $S=d\Z$ for some $d\geq 0$.
+\end{thm}
+\begin{proof}
+	The ``if'' direction is obvious: every $S=d\Z$ is a subgroup.
+	
+	Let $S$ be a subgroup of $\Z$. If $S=\{0\}$, then $d=0$ has $S=d\Z$. Otherwise, $S$ has positive elements.
+	
+	Take the smallest positive element $d\in S$. Take $a\in S$, then $a=nd+k$ where $0\leq k<d$. But $k=a-nd\in S$ which is necessarily $0$ as $d$ being the smallest positive element in $S$ and thus $a\in d\Z$;i.e., $S\subseteq d\Z$.
+	
+	Since $d\in S$, so $d\Z\subseteq S$. Thus, $S=d\Z$.
+\end{proof}
+
+As an exercise, proove that $k\Z\cap m\Z=\lcm(k,m)\Z$.
+\begin{prop}
+	The intersection of any collection of subgroups of a group $G$ is also a subgroup.
+\end{prop}
+\begin{proof}
+	Take $\{H_i\}_{i\in I}$ be a collection of subgroups of $G$. Then $\forall i\in I$, we have $e\in H_i$; i.e., $e\in \cap H_i$.
+	
+	Take $a,b\in\cap H_i$, then $\forall i\in I$, $a,b\in H_i$. Thus, $ab\in H_i$ and $a^{-1}\in H_i$. Therefore, $ab\in\cap H_i$ and $a^{-1}\in \cap H_i$.
+\end{proof}
+\begin{definition}
+	Let $X$ be a subset of $G$. Then $\langle X\rangle$ is the intersection of all subgroups containing $X$, called the subgroup \emph{generated} by $X$.
+\end{definition}
+Informally, $\langle X\rangle$ is the smallest subgroup that contains $X$, but subsets might not be comparable under the partial order relation.
+\begin{prop}
+	Let $X$ be a subset of group $G$. Then $g\in\langle X\rangle$ iff $g=e$ or $g=x_1^{\epsilon_1}\cdot ...\cdot x_s^{\epsilon_s}$ for $x_1,...,x_s\in X$ and $\epsilon_i=\pm 1$ for all $i$. Note that it is necessary to list the disjunct $g=e$ as $X$ could be $\emptyset$, in which case, $\langle \emptyset\rangle=\{e\}$.
+\end{prop}
+\begin{proof}
+	Let $T=\{x_1^{\epsilon_1}\cdot ...\cdot x_s^{\epsilon_s}: x_1,...,x_s\in X, \epsilon_i=\pm 1\}$ for $X\not=\emptyset$. Then, we have
+	\begin{enumerate}
+		\item $e=x^1x^{-1}\in T$.
+		\item If $a,b\in T$, then $ab\in T$.
+		\item If $a=x_1^{\epsilon_1}\cdot ...\cdot x_s^{\epsilon_s}\in T$, then $a^{-1}=x_s^{-\epsilon_s}\cdot ...\cdot x_1^{-\epsilon_1}\in T$.
+	\end{enumerate}
+	
+	Therefore, $T$ is a subgroup. Now, if $H$ is a subgroup of $G$, then $X\subseteq H$ implies $T\subseteq H$. Therefore, $T=\langle X\rangle$.
+\end{proof}
+
+When $X=\{g\}$, then we often denote $\langle X\rangle =\langle g\rangle$, and it is equal to $\{g^i:i\in\Z\}$.
+\begin{definition}
+	Let $g\in G$. Then $g^n=\begin{cases}
+		\overbrace{g\cdot ...\cdot g}^n&n>0\\
+		e&n=0\\
+		\underbrace{g^{-1}\cdot ...\cdot g^{-1}}_{-n}&n<0
+	\end{cases}$
+\end{definition}
+	As an exercise, shoe that $g^m\cdot g^n=g^{m+n}$ and $(g^{m})^n=g^{mn}$ for all $m,n\in\Z$.
+\begin{definition}
+	Groups generated by one element are called \emph{cyclic groups}; i.e., $G=\langle g\rangle$ is cyclic.
+\end{definition}
+For example, $\Z=\langle 1\rangle$ and in $D_4$, $\langle r\rangle =\{1,r,r^2,r^3\}$.
+\begin{note}
+	\begin{enumerate}
+	\item If $g^n\not=g^m$ for all $n\not=m$, then $\langle g\rangle$ is infinite.
+	\item If $g^n=g^m$ for some $n>m$, then $g^{n-m}=e$.
+	\item Let $k>0$ be the smallest $\st g^k=e$, then $e, g, g^2, ..., g^{k-1}$ are all different.
+	\end{enumerate}
+If $l\in\Z$, $l=ak+r$ where $0\leq r<k$, then $g^l=g^{ak+r}=e\cdot g^r=g^r$. So, $\langle g\rangle =\{e,g,...,g^{k-1}\}$.
+\end{note}
+\begin{definition}
+	$G$ is \emph{finite} if $G$ has finitely many element; i.e., $|G|<\infty$. Otherwise, it is \emph{infinite}.
+	
+	$g\in G$ is of \emph{finite order} if $|\langle g\rangle|<\infty$.
+	
+	The order of $g\in G$ is the smallest $k\in\N\st g^k=e$.
+\end{definition}
+\begin{example}
+	In $S_n$, take $f$ by $f(1)=2$, $f(2)=3$,...,$f(n-1)=n$,$f(n)=1$. Then, $f$ is of order $n$. We thus have $\langle f\rangle$ is a cyclic group of order $n$.
+\end{example}
+\begin{definition}
+	A group $G_1$ is \emph{isomorphic} to group $G_2$ if there is a bijection $f:G_1\to G_2\st f(ab)=f(a)f(b)$.	
+\end{definition}
+\begin{note}
+If $e_1\in G_1$ and $e_2\in G_2$ are identities. Then $e_2f(e_1)=f(e_1)=f(e_1e_1)=f(e_1)f(e_1)$, and so, $f(e_1)=e_2$.
+
+Also, $e_2=f(aa^{-1})=f(a)f(a^{-1})$, and so, $f(a^{-1})=(f(a))^{-1}$.	
+\end{note}
+\begin{example}
+Suppose that $\langle g\rangle$ is infinite. Then $f:\Z\to \langle g\rangle$ by $m\mapsto g^m$ is a bijection. Also, $f(a+b)=g^{a+b}=g^ag^b=f(a)f(b)$. So, $f$ is an isomorphism.	
+\end{example}
+Another example is given by $\{1,-1\}$ with multiplication and $\{0,1\}$ with addition. These are isomorphic and can be shown by their multiplication table.
+\begin{equation*}
+\begin{tabular}{c|cc}
+$\cdot$&$1$&$-1$\\
+	\hline
+	$1$&$1$&$-1$\\
+	$-1$&$-1$&$1$
+\end{tabular} \text{ and }
+\begin{tabular}{c|cc}
+	$+$&$0$&$1$\\
+	\hline
+	$0$&$0$&$1$\\
+	$1$&$1$&$0$
+\end{tabular} 
+\end{equation*}
+\begin{example}
+Consider $\R_{>0}$ with multiplication and $\R$ with addition. These are groups. Also, $\R_{>0}\subseteq \R^\times =\langle\R_{>0}\cup \{-1\}\rangle$. 
+
+$a\mapsto e^a: (\R,+)\to (\R_{>0},\cdot)$ is an isomorphism.	
+\end{example}
+\begin{definition}
+	Let $G$, $H$ be groups. A function $f:G\to H$ is a \emph{homomorphism} if $f(ab)=f(a)f(b)$.
+\end{definition}
+\section{Jan. 31}
+\begin{definition}
+	Let $G,H$ be groups. A function $f:G\to H$ is a homomorphism if $f(ab)=f(a)f(b)$ for all $a,b\in G$.
+\end{definition}
+\begin{note}
+	\begin{enumerate}
+		\item $f$ is a homomorphism $\implies$ $f(e_G)=e_h$ and $f(a^{-1})=f(a)^{-1}$ for all $a\in G$.
+		\item $f$ is called a \emph{monomorphism} if $f$ is injective (1-to-1).
+		\item $f$ is called an \emph{epimorphism} if $f$ is surjective (onto).
+		\item $f$ is called an \emph{isomorphism} if $f$ is bijective; and $f^{-1}:H\to G$ is also an isomorphism.
+	\end{enumerate}
+\end{note}
+
+If there is an isomorphism between $G$ and $G$, we write $G\cong H$ and consider $G,H$ ``the same.''
+
+\begin{example}
+	$G$ a group, $g\in G$. Then there is a homomorphism $f:\Z\to G\st f(n)=g^n$ for all $n$. $f$ is injective iff $g$ has finite order. 
+\end{example}
+\begin{example}
+	If $X$ and $Y$ are sets and $|X|=|Y|$ then $S(X)\cong S(Y)$.
+\end{example}
+\begin{proof}
+	Suppose $\phi:X\to Y$ is a bijection, then $S(X)\to S(Y)$ by $f\mapsto \phi f\phi^{-1}$ is an isomorphism.
+\end{proof}
+Note that if $|X|=n$, then $|S(X)|=n!$.
+\begin{example}
+	$R$ a commutative ring. Then $\det:\GL_n(R)\twoheadrightarrow R^\times$ is a homomorphism.
+	$$\bigg\vert\begin{bmatrix}
+a&&&\\
+&1&&\bigzero&\\
+&&\ddots&&\\
+&\bigzero&&1&\\
+&&&&1
+\end{bmatrix}
+\bigg|=a$$
+\end{example}
+\begin{example}
+	For all $n$, for all $R$ a ring. Let $P:S_n\to\GL_N(R)$ be for $f\in S_n$, define $P_f=(a_{ij})$ where $a_{ij}=\begin{cases}
+		1&\text{if }i=f(j)\\
+		0&\text{if otherwise}
+	\end{cases}$; i.e., $P_f$ has only one non-zero entry in every row and every column, and all non-zero entries are $1$. Such matrices are called permutation matrices.
+	
+	For example, let $f=\begin{pmatrix}
+		1&2&3\\3&2&1
+	\end{pmatrix}$, $g=\begin{pmatrix}
+		1&2&3\\2&1&3
+	\end{pmatrix}\in S_3$. Then $fg=\begin{pmatrix}
+		1&2&3\\2&3&1
+	\end{pmatrix}$.
+	
+	Note that $P_f=\begin{bmatrix}
+		0&0&1\\0&1&0\\1&0&0
+	\end{bmatrix}$, $P_g=\begin{bmatrix}
+		0&1&0\\1&0&0\\0&0&1
+	\end{bmatrix}$, $P_{fg}=\begin{bmatrix}
+		0&0&1\\1&0&0\\0&1&0
+	\end{bmatrix}$.
+\end{example}
+As an exercise, show that $P_{fg}=P_fP_g$.
+
+In $S_n$, consider $r=\begin{pmatrix}
+	1&2&\dots&n-1&n\\
+	2&3&\dots&n&1
+\end{pmatrix}$ and $s=\begin{pmatrix}
+	1&2&\dots&n-1&n\\
+	n&n-1&\dots&2&1
+\end{pmatrix}$. Let $D_n=\langle r,s\rangle$. This is the dihedral group on regular $n$-gon.
+
+$r$ is rotation by $\frac{2\pi}{n}$ clockwise, $s$ is reflection in perpendicular bisector of $\overline{1n}$, and $D_n$ is all rigid motions of regular $n$-gon.
+
+As an exercise, show $rs=sr^{n-1}$, order of $r=n$, and order of $s=2$.
+
+Note that $D_n=\{1,r,...,r^{n-1},s,rs,...,r^{n-1}s\}$.
+
+When $n=5$, then $rs^3rs^4=rsr=sr^{n-1}r=s$. Note that $srs=r^{n-1}$. $D_n$ is called dihedral group of order $2n$.
+
+\begin{example}
+	Let $G$ be a group. For $g\in G$, define $L_g:G\to G$ by $a\mapsto g\cdot a$ (Left multiplication by $g$). Then $L_g$ is a bijection as $ga=gb\implies a=b$ and $g(g^{-1}a)=a$.
+	
+	We have that $L_g\in S(G)$, so we can define $\phi:G\to S(G)$ by $g\mapsto L_G$. Then $L_g\circ L_h(a)=gha=L_{gh}a$, so, this is an injective homomorphism. 
+\end{example}
+\begin{thm}[Caley]
+	Every group is isomorphic to a subgroup of $S(X)$ for some set $X$.
+\end{thm}
+If $G$ is a group and $g\in G$. Define $C_g:G\to G$ by $C_g(a)=gag^{-1}$. Then, $C_g$ is a homomorphism as $C_g(ab)=gabg^{-1}=gag^{-1}gbg^{-1}=C_g(a)C_g(b)$. Also, $C_g$ is a bijection as $gag^{-1}=gbg^{-1}\implies a=b$ and $g(g^{-1}ag)g^{-1}=a$.
+
+These forms a homomorphism $f:G\to \Aut(G)$ by $g\mapsto C_g$ where $Aut(G)$ is the group of all automorphisms of $G$ under compositions.
+
+\begin{definition}
+	Elements of the form $C_g$ are called \emph{inner automorphisms} and $C_g$ is called ``conjugation by $g$.''
+\end{definition}
+Note: $\Aut(\Z)=\{\id,x\mapsto-x\}$.
+
+If $G=\langle X\rangle$ and $f,h:G\to H$ are two automorphisms. Show as an exercise that if $f(x)=h(x)$ for all $x\in X$, then $f=h$.
+
+$\GL_2(\Z)$ is finitely generated, $(\Q,+)$ and $(\Q^\times,\cdot)$ are not.
+
+Show as an exercise that if $f:G\to H$ is a homomorphism, then $f(G)$ is a subgroup of $H$.
+\begin{definition}
+	Let $A,B$ be subsets of $G$. Then $AB=\{ab:a\in A,b\in B\}$.
+	
+\end{definition}
+\begin{definition}
+	Let $G$ be a group. $A,B$ are subsets of $G$. Then
+	\begin{enumerate}
+		\item $AB=\{ab\ |\ a\in A,b\in B\}$.
+		\item $A^{-1}=\{a^{-1}\ |\ a\in A\}$.
+		\item $aB=\{a\}B=L_a(B)$
+	\end{enumerate}
+\end{definition}
+
+Let $f:G\to G$ be a homomorphism. Then $H=f(G)\leq G$ and we have $f:G\twoheadrightarrow H\hookrightarrow G$.
+
+\begin{definition}
+	$f^{-1}(e)=\{a\in G:f(a)=e\}=\ker(f)$ is the \emph{kernel} of $f$.
+\end{definition}
+\begin{prop}
+	The kernel of $f$ is a subgroup of $G$.
+\end{prop}
+\begin{note}
+	$f(a)=f(b)\iff f(ab^{-1})f(a)f(b)^{-1}=e\iff ab^{-1}\in\ker(f)$. so, $f^{-1}(f(a))=a\ker(f)=\ker (f)a$.
+\end{note}
+\begin{definition}
+	A subgroup $N$ of $G$ is \emph{Normal} if $aN=Na$ for all $a\in G$; alternatively, $aNa^{-1}=N$ for all $a\in G$.
+	
+	($N$ is normal iff $N$ is preserved by all inner automorphism)
+\end{definition}
+As an exercise, show that If $N\leq G$ and $aNa^{-1}\subseteq N$ for all $a\in G$, then $aNa^{-1}=N$ for all $a\in G$.
+\begin{note}
+We denote $N$ is a subgroup of $G$ by $N\leq G$ and $N$ is a normal subgroup of $G$ by $N\unlhd G$. 
+\end{note}
+\begin{example}
+	\begin{enumerate}
+		\item Every subgroup of an abelian group is normal.
+		\item $H=\{e,s\}\subseteq D_4$ has $rH=\{r,rs\}=\{r,sr^3\}$ and $Hr=\{r,sr\}\not=rH$, so not normal.
+		\item $N=\{e,r^2\}$ is normal in $D_4$ as $r^kNr^k=N$ and $sNs^{-1}=N$
+	\end{enumerate}
+\end{example}
+Show as an exercise that $Z(D_4)=\{e,r^2\}$.
+
+\begin{prop}
+	If $G=\langle X\rangle$, $X\subseteq G$, then $N$ is normal iff $\forall s\in X\ sNs^{-1}\subseteq N$ and $s^{-1}Ns\subseteq N$.
+\end{prop}
+Consider $f:G\twoheadrightarrow H\subseteq G$. We observe that elements of $H$ are in bijective correspondence with subsets of the form $a\ker f$ since if $h\in H$ then $f^{-1}(h)=a\ker f$ for some $a\in G$.
+\begin{definition}
+	Let $K\leq G$. A subset of $G$ of the form $aK$ ($Ka$) is called a \emph{left (right) coset} of $K$ in $G$ for $a\in G$.
+\end{definition}
+\begin{prop}
+	$c\in aK$ iff $aK=cK$
+\end{prop}
+\begin{proof}
+	If $cK=aK$, then $c=c\cdot e\in cK=aK$.
+	
+	If $c\in aK$, then $c=ak$ for some $k\in K$. so, $cK=akK=a(kK)\subseteq aK$. Also, $a=ck^{-1}\in cK$, so $aK\subseteq cK$. Hence,$cK=aK$.
+\end{proof}
+\begin{cor}
+	Two left (right) cosets either coinside or are disjoints; i.e., the left (right) cosets partition the group.
+\end{cor}
+Show as an exercise that $(aK)^{-1}=Ka^{-1}$.
+\begin{definition}
+	$[G:K]$ is the index of $K$ in $G$ which is the number of left (right) cosets of $K$ in G.
+\end{definition}
+\begin{prop}
+	Suppose $G$ is finite, so $K$ is finite. For $a\in G$, $|aK|=|K|$, so all cosets have the same number of elements.
+	
+	So, $|G|=[G:K]|K|$.
+\end{prop}
+\begin{cor}
+	$|K|||G|$ if $K\leq G$.
+\end{cor}
+\begin{cor}
+	If $g\in G$, then the order of $g$ divides $|G|$.
+\end{cor}
+\begin{cor}
+	$g^{|G|}=e$.
+\end{cor}
+\begin{thm}[Fermat's Last Theorem]
+	$p$ a prime, if $p\not| a$ then $p|a^{p-1}-a$.
+\end{thm}
+\begin{note}
+	$\Z/p\Z$ is a field. $|(\Z/p\Z)^\times|=p-1$, and $a\in (\Z/p\Z)^\times\implies a^{p-1}=e$.
+\end{note}
+\begin{prop}
+	$N\unlhd G$ iff every left coset of $N$ is also a right coset.
+\end{prop}
+The proof is left as an exercise.
+
+Consider $f:G\twoheadrightarrow H\subseteq G$. $H$ is in a bijection w/ cosets of $\ker f$; i.e., $h\leftrightarrow f^{-1}(h)$.
+
+\begin{definition}
+	$G/N$ is the set of all cosets of a nornal group $N\unlhd G$.
+\end{definition}
+\begin{note}
+	We can consider $f:G\twoheadrightarrow H$. Then $N=\ker f$, $aN=f(a)$, $bN=f(b)$, so, $abN=f(a)f(b)=f(ab)$. Then, $G/N$ is a group isomorphic to $H$. 
+\end{note}
+\begin{definition}
+	Multiplication on $G/N$ by $(aN)(bN)=(ab)N$. Need to check that if $aN=a_1N$, $bN=b_1N$, then $abN=a_1b_1N$.
+\end{definition}
+\begin{proof}
+	We have $a_1=an_1$, $b_1=bn_2$. Then $a_1b_1=an_1bn_2$. $Nb=bN\implies n_1b=bn_3 \implies a_1b=abn_3n_2=abn_4\in abN$.
+\end{proof}
+As an exercise, show that $(aN)(bN)=(ab)N$ as sets.
+\begin{prop}
+	$(G/N,\cdots)$ is a group.
+\end{prop}
+\begin{proof}
+	We have $[(aN)(bN)](cN)=(ab)NcN=(ab)cN=a(bc)N=aN[bNcN]$. $e=N$. $aN\cdot N=aN$. $(aN)(a^{-1}N)=aa^{-1}N=N$.
+\end{proof}
+We have a canonical map called the quotient map. $\phi:G\to G/N$ by $g\mapsto gN$. It is surjective and is a homomorphism. $\ker \phi=N$.
+\begin{example}
+	Let $G=\Z$. Consider $n\Z$ where $n\geq 0$. Then $\Z/n\Z=\{0+n\Z,1+n\Z,...,(n-1)+n\Z\}$.
+	
+	$(a+n\Z)+(b+n\Z)=ab+n\Z=(a+b\mod n)+n\Z$ and $(a+n\Z)(b+n\Z)=ab+n\Z$. So, $\Z/n\Z$ is a ring.
+\end{example}
+\section{Feb. 7}
+\begin{thm}
+Let $G$ be a group. $H\leq G$, then the following are euivalent
+\begin{enumerate}
+	\item $aH=Ha$ for all $a\in G$
+	\item $aHa^{-1}=H$ for all $a\in G$
+	\item $aHa^{-1}\subseteq H$ for all $a\in G$
+	\item Every left (right) coset of $H$ is also a right (left) coset.
+\end{enumerate}
+If $H$ has these properties, then we call $H$ to be normal, denoted $H\unlhd G$.
+\end{thm}
+\begin{prop}
+Let $H\leq G$. Suppose for any $a,b\in H$, $(aH)(bH)$ is also a left coset. Then $H\unlhd G$ and $(aH)(bH)=(ab)H$.	
+\end{prop}
+The proof is left as an exercise.
+\begin{prop}
+If $f:G\to K$ is a homomorphism, then $\ker f\unlhd G$.	
+\end{prop}
+\begin{definition}
+	Let $N\unlhd G$, then $G/N$ is the set of all coset of $N$ in $G$.
+	
+	With multiplication defined as $(aN)(bN)=(ab)N$, this is well-defined and $G/N$ is a group called the \emph{quotient group} of $G$ by $N$.
+	
+	The map $\phi:G\to G/N$ by $g\mapsto gN$ is a surjective group homomorphism, called the \emph{quotient map} and $\ker\phi=N$.
+\end{definition}
+\begin{prop}
+	Suppose $f:G\to H$ is a surjective homomorphism and let $K=\ker f$, $\phi:G\to G/K$ the quotient map.
+	
+	Then there is a unique homomorphism $\bar f:G/K\to H\st \bar f\phi=f$ and $\bar f$ is an isomorphism. \begin{tikzcd}
+	G\arrow[twoheadrightarrow, r,"f"]\arrow[two heads, d,"\phi"']&H\\
+	G/H\arrow[dotted, ur, "\bar f"']	
+	\end{tikzcd}
+\end{prop}
+\begin{proof}
+	If $\bar f$ exists, then $\bar f(aK)=\bar f\phi (a)=f(a)$. so, it is unique if exists.
+	
+	Define $\bar f(aK)=f(a)$. If $aK=bK$, then $a=bk$ for $k\in K$, so $f(a)=f(bk)=f(b)f(k)=f(b)$. Therefore, it is well-defined.	
+\end{proof}
+\begin{prop}
+	\begin{enumerate}
+		\item Intersection of any collection of normal subgroups of $G$ is still normal.
+		\item If $x\subseteq G$ and $aXa^{-1}\subseteq X$ for all $a\in G$, then $\langle X\rangle$ is normal.
+		\item If $N\unlhd G$ and $H\leq G$, then $NH=HN$ is a subgroup of $G$.
+		\item If $N\unlhd G$ and $H\unlhd G$ then $NH=HN\unlhd G$.
+		\item If $N\unlhd G$ and $H\leq G$, then $H\cap N\unlhd H$.
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	(1) $N_i\unlhd G$, $i\in I$. Then $a\cap N_ia^{-1}=\cap aN_ia^{-1}=\cap N_i$.
+	
+	(2) Let $N=\langle X\rangle$. Then $aXa^{-1}\subseteq X\subseteq N$. So, $\langle aXa^{-1}\rangle=a\langle X\rangle a^{-1}=aNa^{-1}\subseteq N$ and $\langle X\rangle_n=\langle \bigcap\limits_{a\in G}aXa^{-1}\rangle$, where $\langle \cdot\rangle$ is the smallest normal subset containing $\cdot$.
+	
+	(3) Let $nh=h(h^{-1}nh)=hn'\in HN$ so $NH\subseteq HN$. Similarly $HN\subseteq NH$. So, $NH=HN$.
+	
+	Note that $NH=\langle N\cup H\rangle$. $nh(n_1h_1)=nhn_1h^{-1}hh_1\in NH$ and $nh=h^{-1}n^{-1}=h^{-1}nhh^{-1}\in NH$.
+	
+	(4) $a(HN)a^{-1}=(aHa^{-1})(aNa^{-1})=HN$.
+	
+	(5) $h(N\cap H)h^{-1}=(hNh^{-1})\cap (hHh^{-1})=N\cap H$.
+\end{proof}
+\begin{thm}[First homomorphism theorem]
+Let $\phi:G\to K$ be a surjective homomorphism and $f:G\to H$ a homomorphism $\st\ker f\subseteq \ker \phi$. Then there is a unique homomorphism $\bar f:K\to H\st \bar f\phi=f$. Also, $f(G)=\bar f(K)$ and $\ker\bar f=\phi\ker f$. \begin{tikzcd}
+	G\arrow[r,"f"]\arrow[two heads, d,"\phi"']&H\\
+	K\arrow[dotted, ur, "\bar f"']	
+	\end{tikzcd}
+\end{thm}
+\begin{proof}
+if $\bar f$ exists then $\bar f(k)=\bar f(\phi g)=f(g)$ for $\phi g=k$. So, $\bar f$ is unique if exists.
+
+If $\phi(g_1)=\phi(g_2)=k$, then $g_1g_2^{-1}\in\ker\phi$ and so $g_1g_2^{-1}\in\ker f$. Therefore, $f(g_1)=f(g_2)$ and thus $\bar f$ is well-defined. Define $\bar f(k)=f(g)$ for any $g\in G\st \phi(g)=k$.	
+\end{proof}
+\begin{cor}
+If $\phi:G\to G/N$ is a quotient map. and $N\in\ker f$, then $\ker \bar f=\ker f/N$.	
+\end{cor}
+\begin{thm}[Correspondence Theorem]
+	Let $f:G\twoheadrightarrow H$ be a surjective homomorphism. Then
+	\begin{enumerate}
+		\item $K\leq G\implies f(K)\leq H$ ($K\unlhd G\implies f(K)\unlhd H$).
+		\item $T\leq H\implies f^{-1}T\leq G$ and $\ker f\subseteq f^{-1}(T)$.
+		\item If $K\leq G$, then $f^{-1}(f(K))=K\ker f$.
+		\item If $T\leq H$, then $f(f^{-1}(T))=T$.	
+	\end{enumerate}
+To summarize: $T\mapsto f^{-1}(T):\text{subgroups of }H\to \text{subgroups of }G \text{ containing} \ker f$ is a bijective correspondence that preserves inclusion and intersection with normal subgroups corresponding to normal subgroups. In particular, if $f:G\to G/N$ is the quotient map, then subgroups of $G/N\leftrightarrow$ subgroups of $G$ containing $N$; i.e.,
+$$N\subseteq K\subseteq G\leftrightarrow K/N\subseteq G/N$$ 
+\end{thm}
+\begin{thm}[Second homomorphism theorem]
+If $K\unlhd G$, $H\leq G$, $A\unlhd H$. Then $KH\lhd G$, $KA\unlhd KH$ and the quotient map $\phi:KH\to KH/KA$ takes $H$ onto $KH/KA$ and the kernel is $(H\cap K)A$.
+
+	Furthermore, $H/(H\cap K)A\cong KH/KA$ in a canonical way by $h((H\cap K)A)\mapsto h(KA)$. If $A=\{e\}$, then we have $H/H\cap K\cong KH/K$.
+\end{thm}
+\begin{thm}[Modular Law]
+$G$ a group. $H,K,L$ subgroups of $G\st K\subseteq L$. Then $(HK)\cap K=(H\cap L)K$.	
+\end{thm}
+\section{Feb. 9}
+\begin{thm}[Homomorphism Theorems]
+The following are the four homomorphism theorems.
+\begin{enumerate}
+	\item \begin{tikzcd}
+	G\arrow[r,"f"]\arrow[two heads, d,"\phi"']&H\\
+	K\arrow[dotted, ur, "\bar f"']	
+	\end{tikzcd} If $\phi:G\twoheadrightarrow K$ is a surjective homomorphism and $f:G\to H$ is a homomorphism s.t. $\ker\phi\subseteq\ker f$. Then there is a unique homomorphism $\bar f:K\to H\st \bar f\phi=f$. Hence $\bar f(k)=f(a)$ and $\ker\bar f=\phi(\ker f)$.
+	\item Let $f:G\twoheadrightarrow H$ a surjective homomorphism then the assignment $K\to f(K)$ is a bijective correspondence between subgroups of $G$ that contain $\ker f$ and subgroups of $H$ which preserves inclusion, intersection, and normality.
+	\item Let $N\unlhd G, H\leq G, A\unlhd H$. Then $H/(H\cap N)A\to NH/NA$ by $h(H\cap N)A\mapsto hNA$ is a group isomorphism. In particular, if $A=\{e\}$, then $H/H\cap N\cong NH/N$.
+\begin{center}
+	\begin{tikzcd}
+		NH\arrow[dash, d,"\subseteq"']\arrow[r,"\phi"]&NH/NA\\
+		H\arrow[two heads, dr, "\text{quotient}"']\arrow[ur, "\widetilde{\phi}"']&\\
+		&H/(H\cap N)A\arrow[uu]
+		
+	\end{tikzcd} $\ker\widetilde\phi=H\cap NA=(H\cap N)A$
+\end{center}
+\item Let $K\unlhd G, H\unlhd G, K\subseteq H$. Then $G/H\to (G/K)/(H/K)$ by $gH\mapsto (gK)H/K$ is an isomorphism.
+\end{enumerate}
+\end{thm}
+\begin{example}
+	$G$ a group, $g\in G$. Consider $\phi: \Z\to G$ by $n\mapsto g^n$. Then $\ker\phi=m\Z$ where $m$ is the order of $g$. So, $\Z/m\Z\cong \langle g\rangle$
+	
+	Note that in $\Z/m\Z$, take $a\in \Z$. $a+m\Z$ generates $\Z/m\Z$ iff $\gcd(a,m)=1$.
+\end{example}
+\begin{example}
+	$\det:\GL_n(K)\to K^\times$ is a surjective group homomorphism (for any commutative ring). Note that $\ker(\det)=\SL_n(K)$.
+	
+	Scalar notation: $aI, a\in K^\times$ form a normal subgroup of $\GL_n(K)$. This is the center.
+	
+	The quotient $\GL_n(K)/\{aI\}=PGL_n(K)\supseteq PSL_n(K)$.
+	
+	$$SL_n(\Z/p\Z)\supseteq (\Z/pZ)^\times I\subseteq GL_{p-1}(\Z/p\Z)\overset{\det}\to(\Z/p\Z)^\times$$ 
+\end{example}
+\begin{example}
+	Consider the permutation group on $n$ letters. 
+	$$S_n\hookrightarrow \GL_n(\Z)\overset{\det}\to\{1,-1\}=\Z^\times$$
+	
+	This induces $\pi:S_n\to \Z^{1,-1}$. 
+	
+	Note that $\pi$ is surjective as $\det\begin{bmatrix}
+0&1&&&\\
+1&0&&\bigzero&\\
+&&1&&\\
+&\bigzero&&\ddots&\\
+&&&&1	
+\end{bmatrix}
+=-1$.
+
+Here $\ker\pi=A_n$ is the alternating group. $[S_n:A_n]=2$ and $S_n/A_n\cong\{1,-1\}=\Z/2\Z$.
+\end{example}
+\begin{example}
+Let $\phi:G\to \Aut G$ by $g\mapsto C_g$ where $C_g:a\mapsto gag^{-1}$.
+
+Then $\ker\phi=Z(G)$ which is the center of $G$. $\phi(G)=\Inn G$ which are the inner automorphism on $G$. 	
+\end{example}
+As an exercise, show that $\Inn G\unlhd \Aut G$. $\phi C_g\phi^{-1}=C_{\phi g}$.
+\begin{definition}
+The outer automorphisms $\Out G=\Aut G/Inn G$.
+
+$G$ is \emph{complete} if $G\to \Aut G$ is an isomorphism.
+
+$G$ is \emph{simple} if $\{e\}$ and $G$ are the only normal subgroups of $G$.	
+\end{definition}
+\begin{example}
+	$p$ a prime. Then $\Z/p\Z$ are simple. These are the only simple abelian simple groups. 	
+\end{example}
+\begin{prop}
+$G$ a group. $N\unlhd G, K\unlhd G$. If $N\cap K=\{e\}$ then $nk=kn$ for all $n\in N, k\in K$.	
+\end{prop}
+\begin{proof}
+Consider $nkn^{-1}k^{-1}$. On one hand, $nkn^{-1}\in K$	 and $k^{-1}\in K$, so it is in $K$. On the other hand, $n\in N$ and $kn^{-1}k^{-1}\in N$, so it is in $N$. Therefore, $nkn^{-1}k^{-1}\in K\cap N=\{e\}$. Therefore, $nk=kn$.
+\end{proof}
+Therefore, $NK=N\times K$ if $N,K\unlhd G$ and $N\cap K=\{e\}$.
+\begin{definition}
+	Given a collection of groups $(G_i)_{i\in I}$, we define $\prod\limits_{i\in I}G_i$ to be the set of all functions $f:I\to\cup G_i\st \forall i\in I f(i)\in G_i$ where $(g\star f)(i)=f(i)g(i)$, this is the groups called the \emph{product} of $G_i$.
+	
+	Note that this definition corresponds to the strings of $g_i$ where $f\leftrightarrow (g_i)$ s.t., $f(i)=g_i$.
+\end{definition}
+\begin{definition}
+For all $i\in I$, we have a homomorphism $\alpha_i:G_i\to \prod G_i$ by $g\mapsto f$ where $f(j)=\begin{cases}
+	e&j\not=i\\g&i=j
+\end{cases}$
+
+Also, we have $\pi_i:\prod G_i\to G_i$ by $(g_i)\mapsto g_i$.
+
+Given $\phi_i:H\to G_i$, there is a unique $\phi:H\to \prod G_i\st \phi_i=\pi_i\phi$. for all $i$	
+\end{definition}
+Inside of $\prod\limits_{i\in I}G_i$, we have subgroups $\bigoplus\limits_{i\in I}G_i$; the direct sums of $G_i$ which consists of all those $f\st f(i)\not=e$ for at most finitely many $i$.
+\begin{prop}
+Given any collection $\phi_i:G_i\to A_i$ where $A_i$ abelian groups. There is a unique $\phi:\bigoplus\limits_{i\in I} G_i\to A\st \phi\alpha_i=\phi_i$ by $\phi((g_i))=\sum\phi_i(g_i)$.	
+\end{prop}
+\begin{example}
+Suppose $\gcd(m,n)=1$, then $\Z/mn\Z\cong\Z/m\Z\times\Z/n\Z$ as we have $\langle m+mn\Z\rangle\cap\langle n+mn\Z\rangle =\{e\}$ where $\langle m+mn\Z\rangle =\Z/n\Z$ and $\langle n+mn\Z\rangle =\Z/m\Z$.	
+\end{example}
+As an exercise, show that\begin{enumerate}
+\item $n=p_1^{k_1}\cdot ...\cdot p_s^{k_s}$, $\Z/n\Z\cong \Z/p_1^{k_1}\Z\times ...\times \Z/p_s^{k_s}\Z$.
+\item $\Z/n\Z\times \Z/m\Z\cong \Z/\gcd(m,n)\Z\times\Z/\lcm(m,n)\Z$.	
+\end{enumerate}
+
+
+Consider $A=\bigoplus\limits_{i\in I}\Z$, then every element of $A$ can be uniquely written as $\sum m_ie_i=(m_i)$ for $m_i\in\Z$ and finitely many of them are not zero.
+
+Let $G$ be an abelian group (we use additive notation). Then the elements $(g_i)_{i\in I}$ have the property that $G\cong \bigoplus\limits_{i\in I}\rangle g_i\langle$ is an isomorphism iff $\oplus\langle g_i\rangle=G$ ($\{g_i:i\in I\}$ generates $G$).
+
+If $m_1g_1+...+m_sg_s=0$ then $m_1g_1,...,m_sg_s=0$.
+\section{Feb. 11}
+\begin{definition}
+Let $G_i$, $i\in I$ be groups. Then $\prod_{i\in I}G_i=\{f:I\to\bigcup\limits_{i\in I}G_i: \forall i\in I\ f(i)\in G_i\}$.
+
+A function $f$ is often denoted $(f_i)_{i\in I}$ where $f_i=f(i)$. We have $(f\star g)(i)=f(i)g(i)$.
+
+There are projections: $\pi_i:\prod G_i\to G_i$ by $\pi_i(f)=f(i)$.
+
+There are also embbedings: $e_i:G_i\to \prod G_i$ by $e_i(g)(j)=\begin{cases}
+	e&j\not=i\\g&j=i
+\end{cases}$.	
+\end{definition}
+\begin{definition}
+The direct sum $\bigoplus\limits_{i\in I}G_i\subseteq \prod G_i$ of the groups $G_i$ consists of $f\st f(i)=e$ except for finitely many $i$.	
+\end{definition}
+\begin{prop}[Universal Property]
+	Given an abelian group $A$ and homomorphisms $\phi_i:G_i\to A$, there is a unique $\phi:\bigoplus\limits_{i\in I}G_i\to A\st \phi e_i=\phi_i$ by $\phi((g_i))=\sum_i\phi_i(g_i)$.
+\end{prop}
+\begin{example}
+	\begin{enumerate}
+		\item $V$ is a vector space over a field $K$ then $(V,+)\cong \bigoplus\limits_{i\in I}K$ for some $I$.
+		\item $K$ a field. Then $K$ contains either $\Q$ or $\Z/p\Z$ where $p$ is a prime as a subfield (it is called the prime subfield of $K$). $(K,+)\cong\begin{cases}
+			\bigoplus\limits_{i\in I}\Q&\Q\subseteq K\\
+			\bigoplus\limits_{i\in I}\Z/p\Z&\Z/p\Z\subseteq K
+		\end{cases}$	
+	\end{enumerate}
+\end{example}
+\begin{definition}
+	$A$ abelian group, $(a_i)$, $i\in I$ some elements in $A$. The natural homomorphism $\phi:\bigoplus\limits_{i\in I}\langle a_i\rangle \to A$ by $(m_ia_i)\mapsto \sum\limits_{i\in I}m_ia_i$.
+	
+	1. $\phi$ is onto iff $A$ is generated by $\{a_i\}_{i\in I}$.
+	
+	2. $\phi$ is injective iff whenever $\sum_{i\in I}m_ia_i=0$, we have $m_ia_i=o$ for all $i\in I$.
+	
+	If $(a_i)$ has property 2, we say that $a_i$ are independent in $A$. If in addition they have property 1, we say they form a basis of $A$.
+\end{definition}
+\begin{example}
+$\Z/6\Z\cong \Z/2\Z\times\Z/3\Z$, we have $\Z/6\Z \cong\langle3+6\Z\rangle\oplus \langle 2+6\Z\rangle$. So, $\{1+6\Z\}$ is a basis of $\Z/6\Z$ and $\{3+6\Z,2+6\Z\}$ is also a basis of $\Z/6\Z$.	
+\end{example}
+\begin{definition}
+An abelian group $F$ is called \emph{free abelian} if it has a basis consisting of elements of infinite orders (then every element $\not= e\in F$ has infinite orders).
+$$F\text{ is free abelian }\iff F\cong \oplus_{i\in I}\Z$$	
+\end{definition}
+\begin{cor}
+	Every abelian group is a quotient of a free abelian group. An abelian group can be generated by $n$ elements iff it is a quotient of $\Z^n$.
+\end{cor}
+\begin{proof}
+If $a_i$, $i\in I$ generates $A$, then the maps $\phi_i:\Z\to A$ by $i\mapsto a_i$ gives surjective homomorphism $\bigoplus\limits{i\in I}Z\twoheadrightarrow A$.	
+
+If $A$ is generated by $n$ elements then we get $\Z^n\twoheadrightarrow A$. Conversely, if $\Z^n\twoheadrightarrow A$, then since $\Z^n$ is generated by $n$ elements, we have $A$ is generated by their images. 
+\end{proof}
+Idea: in order to understand $n$-generated abelian groups, we need to understand subgroups of $\Z^n$.
+\begin{example}
+	$n=1$, subgroups of $\Z$ are $k\Z$ where $k\geq 0$, so they are all cyclic.
+\end{example}
+\begin{prop}
+Let $N\unlhd G$, if $N$ cam be generated by $s$ elements and $G/N$ can be generated by $t$ elements, then $G$ can be generated by $s+t$ elements.	
+\end{prop}
+\begin{proof}
+Let $a_1,...,a_s$ generates $N$ and $b_1N,...,b_tN$ generates $G/N$. Consider $H=\langle a_1,...,a_s,b_1,...,b_t\rangle$. Note that $N\subseteq H$
+
+Also, let $\pi:G\to G/N$, then $\pi(H)$ contains $b_1N,...,b_tN$. So, $\langle g_1N,...,g_tN\rangle\subseteq \pi(H)$. So, $\pi(H)=G/N$. By correspondence, $H=G$. 	
+\end{proof}
+\begin{cor}
+A subset of $\Z^n$ can be generated by $n$-elements.	
+\end{cor}
+\begin{proof}
+Induction on $n$. If $n=1$, $d\Z$ can be generated by $d$.
+
+Define $K\leq \Z^n$, let $e_1,...,e_n$ be the standard basis.
+
+$\Z\cong \langle e_1\rangle\subseteq \Z^n\overset{\pi}\twoheadrightarrow\Z^{n-1}$. Also, $K\cap \langle e_1\rangle \subseteq K\twoheadrightarrow\pi(K)$. Note that $K\cap \langle e_1 $ is a subgroup of $\langle e_1\rangle$, so it is cyclic. 
+
+By induction, $\pi(k)$ can be generated by $n-1$ elements, and $\pi(K)\cong K/(K\cap\langle e_1\rangle)$. 	
+\end{proof}
+\begin{note}
+Let $F$ be a free abelian group with basis $e_1,...,e_n$ and $A$ be subgroups generated by $w_1,...,w_m$ (we don't necessarily have $m\leq n$).
+
+Now, $w_i=\sum\limits_{j=1}^n m_{i,j}e_j$ where $m_{i,j}\in\Z$. Let $M=(m_{i,j})$ a $m\times n$ matrix.
+
+Pick $i\not=j$, 1. if we replace $w_i$ by $w_i+kw_j$ and keep the rest unchanged, then we get another generating set and the new matrix $M$ which is obtained from $m$ by adding $k\cdot j$th row to the $i$th row.
+
+2. if we replace $e_j$ by $e_j-k\cdot e_j$ and keep the rest unchanged, then we get a new basis of $F$ and the corresponding $M$ is obtained from $M$ by adding $k\cdot j$th column to $i$th column of $M$.
+
+3. Permuting $e_i$'s permutes the column and permuting $w_i$'s permutes the rows.
+
+We start with $M$. Find the non-zero entry of the smallest absolute value of $M$ and permute, so it is the $1-1$ entry. Replacing $e_i$ by $-e_i$ we may assume that $k_{1,1}>0$.
+
+Suppose $k_{1,1}\not|k_{i,1}$ for some $i$. Then $k_{i,1}=pk_{1,1}+r$ for $0<r<k_{1,1}$. Subtracting $p\cdot$ 1st row from $i$th and have $k_{i,1}=r<k_{1,1}$.
+
+Repeat the process, then we have the resulting $\bar e_1,...,\bar e_n$ is a basis, $\bar w_1=k_{1,1}\bar e_1$ and $\{\bar w_2,...,\bar w_m\}\subseteq \rangle \bar e_2,...,\bar e_n\langle$.	
+\end{note}
+\begin{thm}
+There is a basis $\{\bar e_1,...,\bar e_n\}$ of $F$ and $k_1|k_2|k_3|...|k_r\st k_1\bar e_1, ...,k_r\bar e_4$ generate $A$.	
+\end{thm}
+\begin{cor}
+$A$ is free with basis 	$k_1\bar e_1, ...,k_r\bar e_4$.
+\end{cor}
+\begin{cor}
+$F/A\cong \Z/k_1\Z\oplus...\oplus \Z/k_r\Z\oplus \Z^{n-s}$.	
+\end{cor}
+
+
+
+
+
+
+\section{Feb. 14}
+\begin{thm}
+Let $F$ be a free abelian group with basis of size $n$, and let $\{0\}\not=A<F$. Then there is a basis $e_1,...,e_n$ of $F$ and positive integers $k_1|k_2|...|k_s$ for some $s\leq n\st k_1e_1, k_2e_2,...,k_3e_3$ generate $A$. 
+\end{thm}
+The idea of the proof is to start with a basis $b_1,...,b_n$ of $F$ and generating set $w_1,...,w_v$ of $A$. Write $w_i=\sum_{j}m_{ij}b_j$ and consider $M=(m_{ij})$. By a sequence of operations of the form
+\begin{enumerate}
+	\item For $i\not=j$, replace $w_i$ by $w_i+kw_j$ for some $k\in\Z$.
+	\item For $i\not=j$, replace $e_i$ by $e_i+kw_j$ for some $k\in\Z$.
+	\item Permute the basis basis elements or the generators of $A$.
+	\item Replace a basis element or generator by its inverse.
+\end{enumerate}
+transform the bases and generating set, so that the corresponding $M$ is $\begin{bmatrix}
+k_1	& & \bigzero& \vline\\
+\bigzero& \ddots& &\vline&\bigzero&\\
+&&k_s&\vline\\
+\hline
+\bigzero&&\bigzero& \vline& \bigzero\\
+\\
+\end{bmatrix}$.
+
+We often call the bases in the theorem a compatible choice of bases of $F$ and $A$.
+\begin{cor}
+	$A$ is free abelian. In general, a subgroup of any free abelian group is free abelian.
+\end{cor}
+\begin{thm}
+Let $G$ be a finitely generated abelian group. Then $G \cong \Z/k_1\Z \oplus...\oplus \Z/k_r\Z\oplus \Z^t$ for some $1<k_1|k_2|...|k_r$ and $t\geq 0$.	
+\end{thm}
+\begin{proof}
+Since $G$ is $n$-generated, then we have a surjective map $\Z^n\overset{\pi}\twoheadrightarrow G$. If $\ker(\pi)=A$, choose compatible basis $\{e_1,...,e_n\}$ of $\Z^n$ and $l_1e_1,...,l_se_s$ of $A$ so that $l_1|l_2|...|l_s$. Then we have $\Z/A\cong\Z/l_1\Z\oplus ...\oplus \Z/l_s\Z\oplus \Z^{n-s}$ and if we remove all $l_i=1$, we have the result.
+\end{proof}
+\begin{prop}
+$\Z^n$ can not be generated by fewer than $n$ elements.	
+\end{prop}
+\begin{proof}
+$\Z^n\subseteq \Q^n$ and if $e_1,...,e_k$ generates $\Z^n$ as abelian group, then $e_1,...,e_k$ span $\Q^n$ as $\Q$-vector space.
+
+If $v\in\Q^n$ then $N\cdot v=\Z^n$ and thus $N\cdot v=\sum m_ie_i$, $v=\sum \frac{m_i}{N}e_i$. Therefore, $k\geq n$.)
+\end{proof}
+\begin{cor}
+If $k\not=n$	then $\Z^k\not\cong\Z^n$.
+\end{cor}
+\begin{proof}
+If $k<n$, then $\Z^k$ is generated by $k$ elements, but $\Z^n$ cannot be generated by $n$ elements.
+\end{proof}
+\begin{definition}
+	The number of basis elements of a finitely generated abelian group $F$ is unique, and is called the \emph{rank} of $F$.
+\end{definition}
+Let $G\cong \Z/k_1\Z\oplus ...\oplus \Z/k_r\Z\oplus \Z^t$, where $1<k_1|k_2|...|k_r$. Then
+\begin{enumerate}
+	\item $\Z/k_1\Z\oplus ...\oplus \Z/k_r\Z$ are the elements of finite order, we call it the \emph{torsion} of $G$, and denote $T(G)$.
+	\item $\Z^t\cong G/T(G)$, so $t$ is the rank of $G/T(G)$.
+	\item $k_r$ is the exponent of $T(G)$.
+	\item Let $r$ be the smallest number of generator of $T(G)$, $T(G)=\Z/k_1\Z\oplus...\oplus \Z/k_r\Z$ can be generated by $r$ elements.
+\end{enumerate}
+Let $p|k_1$ be a prime. Then $T(G)/pT(G)=(\Z/p\Z)^r$. This is a vector space over $\Z/p\Z$. So cannot be spanned by fewer than $r$ elements.
+
+As an exercise show that $k_i$ is the smallest positive integers so that $k_i\cdot T(G)$ can be generated by $r-i$ elements.
+
+\begin{cor}
+$k_i$ are unique for $G$, and called the invariant factors of $G$.	
+\end{cor}
+Show as an exercise that $r+t$ is the smallest number of generators of $G$.
+\begin{definition}
+Let $A$ be an abelian group. Then $T(A)$ is all the elements of of finite order in $A$. This is a subgroup of $A$.
+\end{definition}
+\begin{definition}
+A subgroup $N$ of $G$ is characteristic if for every $\phi(N)=N$. 	
+\end{definition}
+As an exercise, show \begin{enumerate}
+ \item $N$ is characteristic in $G$ implies that $N$ is normal in $G$.
+ \item $T(A)$ is characteristic in $A$.	
+ \end{enumerate}
+\begin{definition}
+$A$ is torsion if $A=T(A)$. $A$ is torsion free if $T(A)=\{0\}$.	
+\end{definition}
+\begin{prop}
+$A/T(A)$ is torsion free.	
+\end{prop}
+\begin{definition}
+Given $n\in\N$. Then $nA=\{na:a\in A\}\leq A$, and $A[n]=\{a\in A: na=0\}\leq A$.	
+\end{definition}
+Note that there is a natural injection from $A[n]$ into $A$, and a natural surjection from $A$ onto $nA$.
+\begin{definition}
+Let $P$ be a prime, then $A_p=\{a\in A:p^ka=0\text{ for some }k\in\N\}=\bigcup\limits_{k=	1}^\infty A[p^k]$. We call it the $p$-primary part of $A$.	
+\end{definition}
+Note that $A[p]\subseteq A[p^2]\subseteq...\subseteq A[p^n]\subseteq ...$
+\begin{definition}
+Let $H_i$ for $i\in I$ be a family of subgroups of $G$. It is a chain if for any $i,j\in I$, either $H_i\subseteq H_j$ or $H_j\subseteq H_i$.	
+\end{definition}
+Show as an exercise that the union of any chain of subgroups is a subgroup.
+\begin{prop}
+If $A$ is a torsion abelian group, then $A\cong \bigoplus\limits_{p\text{ prime }}A_p$
+\end{prop}
+\begin{proof}
+Since $A_p$ are subgroups, we have the natural embeddings $A_p\hookrightarrow A$. Take the induced homomorphism $\bigoplus_pA_p\to A$. Then $(a_p)\mapsto \sum_pa_p$.
+
+Let $a\in A$, and $n$ be the order of $a$. Then $n=p_1^{k_1}\cdots p_s^{k_s}$ is its prime factorization. Then $\frac{n}{p_i^{k_i}}a\in A_{p_i}$ since $p_i^{k_i}\cdot\frac{n}{p_1^{k_i}}a=na=0$.
+
+We observe that $\frac{n}{p_1^{k_1}},...,\frac{n}{p_s^{k_s}}$ have non trivial common divisors, so $m_1\frac{n}{p_1^{k_1}}+...+m_s\frac{n}{p_s^{k_s}}=1$ for some $m_1,...,m_s$. So, $a=m_1\frac{n}{p_1^{k_1}}a+...+m_s\frac{n}{p_s^{k_s}}a$.
+
+Suppose $a_{p_1}\in A_{p_i}$ and $a_{p_1}+...+a_{p_k}=0$. There is $N\st p_i^N\cdot a_{p_i}=0$ for all $p_i$. Then $p_2^N\cdot...\cdot p_t^N(a_{p_1}+\cdot +a_{p_t})=0=p_2^N\cdot...\cdotp_t^Na_{p_1}$, so order of $ap_1|p_2^N\cdot...\cdotp_t^N$ and so order of $ap_t|p_1^s$, therefore, s=0.
+\end{proof}
+\begin{note}
+	$G$ a finite abelian group. Then $G=G_{p_1}\oplus...\oplus G_{p_s}$ for some $p_i$. Then $G_{p_i}\cong \Z/p_1^{m_{i1}}\Z\oplus...\oplus \Z/p_i^{m_{tk_i}}\Z$, $m_{i1}\leq ...\leq m_{ik_{i}}$.
+	
+	$G_{p_i}=p_i^{m_{i1}+...+m_{ik_{s}}}=p_i^{k_i}$ where $|G|=N=P_1^{k_1}\cdot ...\cdot p_s^{k_s}$.
+\end{note}
+\begin{cor}
+	Every finite abelian group is a direct sum of cyclic groups of prime power orders and the collection of all prime power order is unique for the group. We call the prime powers appearing elementary divisors.
+\end{cor}
+\begin{example}
+	$\Z/12\Z\oplus\Z/18\Z=\Z/3\Z\oplus\Z/4\Z\oplus\Z/2\Z\oplus\Z/9\Z=\Z/2\Z\oplus\Z/4\Z\oplus\Z/3\Z\oplus\Z/9\Z=\Z/6\Z\oplus\Z/36\Z$
+\end{example}
+\section{Feb. 16}
+\begin{thm}
+	$G$ finitely generated abelian group. Then 
+	\begin{enumerate}
+	\item $G\cong T(G)\times \Z^t$ for some $t$ which is unique and called the (torsion free) rank of $G$.
+	\item $T(G)\cong \Z/k_1\Z\times...\times \Z/k_s\Z$ is finite, where $1<k_1|k_2|...|k_s$ are unique for $G$ and called the invariant factors of $G$.
+	\item $T(G)\cong T(G)_{p_1}\times ...\times T(G)_{p_k}$ where $|T(G)|=p_1^{m_1}...p_k^{m_k}$, and the invariant factors of $T(G)_{p_i}$ together are unique for $G$ and called the elementary divisors of $G$.
+	
+	So, $T(G)$ is a direct sum of cyclic groups of prime power order in an essentially unique way.
+	\end{enumerate}
+\end{thm}
+\begin{definition}
+	$G$ abelian group, $n\in N$. Then
+	\begin{enumerate}
+		\item $G[n]=\{g\in G: ng=0\}$ is a subgroup.
+		\item $nG=\{ng:g\in G\}$ is a subgroup.
+		\item $p$ a prime. $G_p=\{g\in G: p^kg=o\text{ for some }k\}=\bigcup_kG[p^k]$ is a subgroup called the $p$-primary component.
+		\item $T[G]=\{g:ng=0\text{ for some } n>0\}=\bigcup_nG[n!]$ is a subgroup.
+	\end{enumerate}
+\end{definition}
+Note, we have $G/T(G)$ is torsion-free.
+\begin{thm}
+	If $G$ torsion, then $G\cong \bigoplus\limits_{p\text{ prime}}G_p$.
+\end{thm}
+Show as an exercise that if $G$ is abelian and $G/A$ is free abelian, then $G\cong A\times G/A$.
+
+Warning: $T(G)$ is not always a direct summand to $G$ ($G\not\cong T(G)\times G/T(G)$)
+\begin{example}
+Consider $(\Q,+)$. Every $2$ elements of $\Q$ are dependent, for $\frac{p}{q}$, $\frac{m}{n}$, we have $mq\frac{p}{q}-pn\frac{m}{n}=0$. So, $\Q$ is not free abelian, it is torsion-free, not cyclic.
+\end{example}
+\begin{example}
+Consider $S^1=\{z\in\C:|z|=1\}$ with $\cdot$.
+
+$T(S^1)=\mu_\infty$ is all roots of unity which is $\{e^{2\pi i\frac{m}{n}}: \frac{m}{n}\in\Q\}$.
+
+$T(S^1)_p=\mu_p^\infty$ is all roots of unity of $p$-power order.
+
+We have a surjective homomorphis, $E:(\R,+)\to S^1$ by $t\mapsto e^{2\pi i t}=\cos(2\pi t)+i\sin(2\pi t)$. Here, $\ker E=\Z$. So, $S^1\cong \R/\Z$ with $E^{-1}(T(S^1))=\Q$.
+
+So, $\mu_\infty\cong \Q/\Z$ and $\mu_p^\infty=\{$rational numbers with $p$th power denominators$\}/\Z$
+
+$S^1/T(S^1)\cong (\R/\Z)/(\Q/\Z)\cong \R/\Q\cong \bigoplus \Z$.	
+\end{example}
+
+As an exercise. show that $S^1\cong T(S^1)\times \R/\Q$ where $\R/\Q\cong S^1/T(S^1)$.
+
+Note that $\mu_p^\infty$ is infinite but every proper subgroup is finite and cyclic.
+\begin{definition}
+	$G$ abelian, $n\in\N$. Then
+	\begin{enumerate}
+	\item $a\in G$ is $n$-divisible if $a=nb$ for some $b\in G$.
+	\item $G$ is $n$-divisible if all elements of $G$ are $n$-divisible.
+	\item $G$ is divisible if it is $n$-divisible for every $n$.	
+	\end{enumerate}
+\end{definition}
+\begin{example}
+	$\Q$ is divisible, $\Q/\Z$ is divisible, $\mu_p^\infty$ are divisible, $S^1$ is divisible.	
+\end{example}
+Show as an exercise that if $G$ is divisible then $G/A$ is divisible for any $A\leq G$. Also, if $A$ is divisible then $A\leq G\implies G\cong A\oplus G/A$.
+\begin{definition}
+$G$ is abelian. $A\leq G$, then $A$ is called \emph{pure} in $G$ if for any $a\in A$ and any $n\in \Z$ if $a=ng$ for some 	$G\in G$ then $a=nb$ for some $b\in A$ (i.e., $A\cap nG=nA$).
+\end{definition}
+\begin{thm}
+Every divisible group is a direct sum of groups isomorphic to $\Q$ or $\mu_p^\infty$ for some prime $p$.
+\end{thm}
+\begin{note}
+$A$ torsion and $A[n]=\{0\}$ then $A=nA$. If $|g|=k$, $\gcd(n,k)=1$ then $\langle g^n\rangle=\langle g\rangle$.	
+\end{note}
+\begin{thm}
+	$G$ abelian, $A<G$ pure, $G/A$ a direct sum of cyclic groups (i.e., $G/A$ has a basis), then $G\cong A\oplus G/A$
+\end{thm}
+\begin{thm}
+$G=G_p$ is an abelian $p$-group of finite exponent ($G=G[p^k]$ for some $k$) then $G$ is a direct sum of cyclic groups.	
+\end{thm}
+\begin{cor}
+If $G$ abelian of finite exponent, then $G$ is a direct sum of cyclic groups.
+\end{cor}
+Show as an exercise that $T(G)$ is always pure in $G$.
+\begin{thm}
+If $T(G)$ is of finite exponent then $G\cong T(G)\times G/T(G)$.	
+\end{thm}
+\section{Feb. 18}
+\begin{thm}
+An abelian group of finite exponent is a direct sum of cyclic groups.	
+\end{thm}
+\begin{thm}
+	If $A\leq G$ and $A$ is pure in $G$ and $G/A$ is a direct sum of cyclic group, then $G\cong A\times G/A$. 	
+\end{thm}
+\begin{thm}
+$A\leq G$ pure and of finite exponent, then $G\cong A\oplus G/A$.	
+\end{thm}
+\begin{thm}
+If $T(A)$ is of finite exponent then $A\cong T(A)\times A/T(A)$.	
+\end{thm}
+\begin{thm}[Kulikov]
+	$G$ torsion abelian then $G$ has a pure subgroup $A$ which is a direct sum of cyclic groups and $G/A$ is divisible.
+	$$A\hookrightarrow G\twoheadrightarrow G/A$$
+\end{thm}
+Let $G$ be a group. $X\subseteq G\st G=\langle X\rangle$. This means that every elememnt of $G$ is of the form $g_1^{\epsilon_1}...g_k^{\epsilon_k}$ with $g_i\in X$, $\epsilon_i=\pm 1$.
+
+Usually there are many ways a given element can be written like.
+
+Trivial reasons: We can always insert somewhere $gg^{-1}$ or $g^{-1}g$; $g\in X$.
+
+Question: Are there groups $G$ and $X\subseteq G$ where this is the only reason?
+
+\begin{definition}
+	$X$ a set. A word of length $n$ over $X$ is a sequence of $n$ elements from $X$ (repetition allowed): $a_1a_2...a_n$ where $a_i\in X$. Note, word of length 0 is the empty word.
+	
+	$W(X)$ is the set of all finite words. Given $2$ words, $u,w\in W(X)$, we can concatenate them with $u\star w=uw$. This is an associative binary operation, and it makes $W(X)$ a monoid. It is called the free monoid on $X$. 
+\end{definition}
+Show as an exercise that given any monoid $M$ and any function $f:X\to M$ it extends uniquely to a homomorphism $W(X)\to M$.
+
+\begin{definition}
+	$X$ a set. Consider $X\times \{1,-1\}$. We write $x$  for $(x,1)$ and $x^{-1}$ for $(x,-1)$. Consider $W(X\times \{1,-1\})$.
+	
+	A word $x_1^{\epsilon_1}x_2^{\epsilon_2}...x_n^{\epsilon_n}$ in $W(X\times \{1,-1\})$ is \emph{reduced} if whenever $x_i=x_{i+1}$ we have $\epsilon_i\not=-\epsilon_{i+1}$.
+	
+	$R(X)$ is the set of all reduced words in $W(X\times \{1,-1\})$.
+\end{definition}
+\begin{note}
+	$M$ is a groupa and $f:X\to M$ then it extends to $f:X\times \{-1,1\}\to M$ by $(x,1)\mapsto f(x)$ and $(x,-1)\mapsto f(x)^{-1}$ and it extends to monoid homomorphism $W(X\times \{1,-1\})\to M$. Clearly equivalent words have the same images in $M$. 
+
+$R(X)$ is the set of reduced words in $W(X\times \{1,-1\})$ and it has a binary operation $u\star w=uw$ and reduced.
+
+This operation has inverses as $(x_1^{\epsilon_1}...x_n^{\epsilon_n})^{-1}=x_n^{-\epsilon_n}...x_1^{-\epsilon_1}$. We have $(x_1^{\epsilon_1}...x_n^{\epsilon_n}) (x_n^{-\epsilon_n}...x_1^{-\epsilon_1})=\emptyset$	
+\end{note}
+
+Problem is that is this operation associative? Yes, but technical complication.
+
+\begin{definition}
+	$G$ a group. $X\subseteq G$ a subset. We say $X$ generates $G$ freely if the natural map $R(X)\twoheadrightarrow G$ is bijective (So, $X$ generates $G$).
+	
+	If this happens than $R(X)$ is a group.
+\end{definition}
+Note that if $X$ generates freely $G$, $Y$ generates
+freely $H$. $f:X\to Y$ is a bijection, then it extends to an isomorphism $G\to H$.
+\begin{example}
+Let $X=\{1\}$, we have $G=\Z$ and $\{1\}$ generates freely $\Z$.	
+\end{example}
+Show as an exercise that if $X$ generates freely $G$, $f:X\to H$ any function to a group $H$, then it extends uniquely to a homomorphism $G\to H$.
+
+\section{Feb. 21}
+\begin{definition}
+	$X$ a set. $W(X\times\{1,-1\})$ is the free monoid. Then $R(X)$ is all reduced words in $X\cup X^{-1}$ which is a subgroup of $W(X\times \{1,-1\})$. $R(X)$ has a binary operation with every element ``invertible,'' but not yet established that it is surjective.
+\end{definition}
+Given any group $G$ and a function $X:X\to G$, there is a unique monoid homomorphism $f:W(X\times\{1,-1\})\to G$ by $x\mapsto f(x)$ and $x^{-1}\mapsto f(x^{-1})$ for $x\in X$ and it restricts to a ``homomorphism'' on $R(X)$. 
+
+\begin{definition}
+	Let $G$ be a group with generating set $X$. We say that $X$ \emph{generates freely} $G$ if the natural map $R(X)\to G$ is a bijection.
+	
+	If such a group exists, then $R(X)$ is a group.
+\end{definition}
+\begin{note}
+	If $R(X)$ is not a bijection, then there is a non trivial reduced word $w$ which is mapped onto $e\in G$.	
+\end{note}
+\begin{proof}
+	Choose shortest reduced word $u$ s.t. $f(u)=f(v)$ for some $v\not=u$. If $u=\emptyset$, then $w=v$ works.
+	
+	Otherwise, suppose $u$ starts with $x^\epsilon$, $x\in X$, $\epsilon=\pm 1$ and $u=x^\epsilon u_1$. If $v=x^\epsilon v_1$, then $f(u)=f(x)^\epsilon f(u_1)=f(x)^\epsilon f(v_j)$. So $f(u_1)=f(v_1)$ and $u_1$ is shorter which is a contradiction. So, $v\not=x^{\epsilon}v_1$ and therefore $u^{-1}v$ is reduced and $f(u^{-1}v)=f(u)^{-1}f(v)=e$. So $G$ is freely generated by $X$ iff $G$ is generated by $X$ and no non-trivial reduced word in $X$ represents $e$.
+ \end{proof}
+\begin{definition}
+	Assume free group on $2$ elements exists, $G=\langle a,b\rangle$ is freely generated by $a,b$.
+	
+	Notation, for $x$ a letter, $n\in\Z_{\not=0}$ define $X^n=\begin{cases}
+		\overbrace{x\cdot ...\cdot x}^n&n>0\\
+		\underbrace{x^{-1}\cdot ...\cdot x^{-1}}_{-n}&n<0
+	\end{cases}$
+\end{definition}
+\begin{note}
+	Reduced	words in $a,b$ are of the form $a^{n_1}b^{n_2}...c^{n_k}$ where $c=a$ or $b$, or $b^{n_1}a^{n2}...c^{n_k}$ where $c=a$ or $b$.
+\end{note}
+\begin{thm}
+	Let $a=\begin{bmatrix}
+		1&2\\0&1
+	\end{bmatrix}$, $b=\begin{bmatrix}
+1&0\\2&1	
+\end{bmatrix}\in SL_2(\Z)
+$. The subgroup $\langle a,b\rangle$ of $SL_2(\Z)$ is freely generated by $\{a,b\}$.
+\end{thm}
+\begin{proof}
+	Let $w$ be a non-trivial reduced word in $F(\{a,b\})$. We need to show $w\not=e$ in $\langle a,b\rangle$.
+
+First, assume that $w$ starts with $b$ or $b^{-1}$; i.e., $w=b^i...c^{\epsilon}$ where $i,\epsilon\in\{1,-1\}$ and $c\in\{a,b\}$. Take $\delta=\begin{cases}
+	1&\text{if }c^\epsilon=a,b,b^{-1}\\
+	-1&\text{if} c^\epsilon=a^{-1}
+\end{cases}$, and $u=a^{-\delta}wa^\delta$. Since $a^{-\delta}$ and $a^{\delta}$ does not cancel with $b^i$ and $c^\epsilon$ respectively, $u$ is also a reduced word. If $w=e$, then $u=a^{-\delta}ea^\delta=e$; and if $u=e$, then $w=a^\delta ea^{-\delta}$. So, $w=e$ iff. $u=e$. So, it suffices to show that $w=a^{d_1}b^{d_2}...c^{d_k}$ where $c\in\{a,b\}$, $d_1,...,d_k\in\Z_{\not=0}$ is not $e$.
+
+We will first show by induction that $a^d=\begin{bmatrix}
+	1&dz\\0&1
+\end{bmatrix}$ and $b^d=\begin{bmatrix}
+	1&0\\dz&1
+\end{bmatrix}$ for $d\in\Z$. By definition, $a^0=\begin{bmatrix}
+	1&0\\0&1
+\end{bmatrix}$ and $b^0=\begin{bmatrix}
+	1&0\\0&1
+\end{bmatrix}$. If $a^d=\begin{bmatrix}
+	1&dz\\0&1
+\end{bmatrix}$ and $b^d=\begin{bmatrix}
+	1&0\\dz&1
+\end{bmatrix}$, then $a^{d+1}=\begin{bmatrix}
+	1&dz\\0&1
+\end{bmatrix}\begin{bmatrix}
+	1&z\\0&1
+\end{bmatrix}=\begin{bmatrix}
+	1&(d+1)z\\0&1
+\end{bmatrix}$ and similarly, $b^{d+1}=\begin{bmatrix}
+	1&0\\dz&1
+\end{bmatrix}\begin{bmatrix}
+	1&0\\z&1
+\end{bmatrix}=\begin{bmatrix}
+	1&0\\(d+1)z&1
+\end{bmatrix}$. So, by PMI, this is true for $d\in\N$. Now, since $\begin{bmatrix}
+	1&dz\\0&1
+\end{bmatrix}\begin{bmatrix}
+	1&-dz\\0&1
+\end{bmatrix}=\begin{bmatrix}
+	1&0\\0&1
+\end{bmatrix}$, we have $a^{-dz}=\begin{bmatrix}
+	1&-dz\\0&1
+\end{bmatrix}$; and similarly, we have $b^{-dz}=\begin{bmatrix}
+	1&0\\-dz&1
+\end{bmatrix}$. Therefore, $\forall d\in\Z$, $a^d=\begin{bmatrix}
+	1&dz\\0&1
+\end{bmatrix}$ and $b^d=\begin{bmatrix}
+	1&0\\dz&1
+\end{bmatrix}$.
+
+Now, define $(\alpha_i)$ recursively by $\alpha_0=1$, $\alpha_1=d_1z$, and for $n\geq 2$, $\alpha_n=\alpha_{n-2}+d_nz\alpha_{n-1}$ where $d_n$ are such powers that are defined in $w=a^{d_1}b^{d_2}...c^{d_k}$. We will now induct on $k$ to show that $w=\begin{cases}
+	\begin{bmatrix}
+		\alpha_k&\alpha_{k-1}\\\cdot&\cdot
+	\end{bmatrix}&\text{if $k$ is even}\\
+	\begin{bmatrix}
+		\alpha_{k-1}&\alpha_k\\\cdot&\cdot
+	\end{bmatrix}&\text{if $k$ is odd}
+\end{cases}$ for $k\in\N$.
+
+If $k=1$, then $w=a^{d_1}=\begin{bmatrix}
+	1&d_1z\\0&1
+\end{bmatrix}=\begin{bmatrix}
+	\alpha_0&\alpha_1\\\cdot&\cdot
+\end{bmatrix}$.
+
+If $k=2$, then $w=a^{d_1}b^{d_2}=\begin{bmatrix}
+	\alpha_0&\alpha_1\\\cdot&\cdot
+\end{bmatrix}\begin{bmatrix}
+	1&0\\d_2z&1
+\end{bmatrix}=\begin{bmatrix}
+	\alpha_0+\alpha_1d_2z&\alpha_1\\\cdot&\cdot
+\end{bmatrix}=\begin{bmatrix}
+	\alpha_2&\alpha_1\\\cdot&\cdot
+\end{bmatrix}$.
+
+Now, assume for some odd $k>2$, we have $a^{d_1}b^{d_2}...b^{k-1}=\begin{bmatrix}
+	\alpha_{k-1}&\alpha_{k-2}\\\cdot&\cdot
+\end{bmatrix}$. Then $a^{d_1}b^{d_2}...b^{d_{k-1}}a^{d_k}=\begin{bmatrix}
+	\alpha_{k-1}&\alpha_{k-2}\\\cdot&\cdot
+\end{bmatrix}\begin{bmatrix}
+	1&d_kz\\0&1
+\end{bmatrix}=\begin{bmatrix}
+	\alpha_{k-1}&\alpha_{k-2}+d_kz\alpha_{k-1}\\\cdot&\cdot
+\end{bmatrix}=\begin{bmatrix}
+	\alpha_{k-1}&\alpha_k\\\cdot&\cdot
+\end{bmatrix}$.
+
+Similarly, assume for some even $k>2$, we have $a^{d_1}b^{d_2}...a^{k-1}=\begin{bmatrix}
+	\alpha_{k-2}&\alpha_{d_{k-1}}\\\cdot&\cdot
+\end{bmatrix}$ Then $a^{d_1}b^{d_2}...a^{k-1}b^k=\begin{bmatrix}
+	\alpha_{k-2}&\alpha_{k-1}\\\cdot&\cdot
+\end{bmatrix}\begin{bmatrix}
+	1&0\\d_kz&1
+\end{bmatrix}=\begin{bmatrix}
+	\alpha_{k-2}+d_kz\alpha_{k-1}&\alpha_{k-1}\\\cdot&\cdot
+\end{bmatrix}=\begin{bmatrix}
+	\alpha_{k}&\alpha_{k-1}\\\cdot&\cdot
+\end{bmatrix}$.
+
+Therefore, by PMI, $w=\begin{cases}
+	\begin{bmatrix}
+		\alpha_k&\alpha_{k-1}\\\cdot&\cdot
+	\end{bmatrix}&\text{if $k$ is even}\\
+	\begin{bmatrix}
+		\alpha_{k-1}&\alpha_k\\\cdot&\cdot
+	\end{bmatrix}&\text{if $k$ is odd}
+\end{cases}$.
+
+Consider $|\alpha_i|$, we will show that $|\alpha_i|$ is an increasing sequence and thus never $=0$.
+
+Since $|z|\geq 2$, $\alpha_1=|d_1z|=|d_1||z|\geq 2>|\alpha_0|$ as $d_1\not=0$.  If $|\alpha_{k-1}|>|\alpha_{k-2}|$, then $|\alpha_k|=|\alpha_{k-2}+d_kz\alpha_{k-1}>|d_kz||\alpha_{k-1}|-|\alpha_{k-2}|>(|d_kz|-1)|\alpha_{k-1}|>(2-1)|\alpha_{k-1}|=|\alpha_{k-1}|$. Therefore, $|\alpha_i|$ is an increasing sequence by PMI. So, $\forall k$, $|a_k|\not=0$ and thus $w\not=e$.
+
+Therefore, $\langle a,b\rangle$ is free.
+\end{proof}
+\begin{prop}
+	Let $x_n=a^nba^n$ where $n=1,2,3,...$. Then $H=\langle x_1,x_2,...\rangle$ is freely generated by $x_1, x_2,...$. 
+\end{prop}
+\begin{proof}
+	$x_n^{-1}$ is represented in $G$ by $a^{-n}b^{-1}a^{-n}$. Elements of $X\cup X^{-1}$ are of the form, $a^mb^{\epsilon_m}a^m$ where $m\in\Z$ and $m\not=0$. Now reduced words in $R(x_1,...)$ look like $a^{m_1}b^{\epsilon_1}a^{m_2}b^{\epsilon_2}a^{m_2}...a^{m_k}b^{\epsilon_k}a^{m_k}$; $\epsilon_i=$ sign $m_i$ and $m_i+m_{i+1}\not=0$. So these are also non-trivial reduced words of $a,b$ and hence non-zero.
+\end{proof}
+\begin{cor}
+For any finite set $X$, $R(X)$ is a group (i.e., the operation is associative).	
+\end{cor}
+\begin{cor}
+For every $X$, $R(X)$ is a group.	
+\end{cor}
+\begin{proof}
+	Take 3 reduced words, $u,v,w$. We need $(uv)w=u(vw)$. But $u,v,w\in R(Y)$ for some finite subset $Y$ of $X$ which we know is a group.
+\end{proof}
+\begin{definition}
+	$A$ a group. It is \emph{free} if it is freely generate by a subset $X$. Then $A=R(X)=\Free(X)$.
+\end{definition}
+\begin{thm}
+	Every group is isomorphic to a quotient of a free group.
+\end{thm}
+\begin{proof}
+	We have a surjective homomorphism $\Free(G)\twoheadrightarrow G$, so $G\cong \Free(G)/\ker$.
+\end{proof}
+\begin{definition}
+	Let $(w_i)_{i\in I}$ be words of $\Free(X)$. Let $H$ be the smallest normal subgroup of $\Free(X)$ generated by $\{w_i:i\in I\}$. Then $\langle X|w_i,i\in I\rangle$ is the group $\Free(X)/H$.
+\end{definition}
+\begin{example}
+	$\langle \{a\}|a^n\}=\Z/n\Z$, for $n>0$
+\end{example}
+\begin{thm}
+	A subgroup of a free group is free.
+\end{thm}
+\section{Feb. 23}
+\begin{thm}
+	Let $a=\begin{bmatrix}
+		1&2\\0&1
+	\end{bmatrix}$, $b=\begin{bmatrix}
+		1&0\\2&1
+	\end{bmatrix}\in \SL_2(\Z)$ and $H=\langle a,b\rangle$. Then this is freely generated by $\{a,b\}$.
+\end{thm}
+\begin{cor}
+For any set $X$, the structure $R(X)$ is a group, denoted $\Free(X)$ and called the free group on $X$.	
+\end{cor}
+\begin{thm}
+	Any group is isomorphic to a quotient of a free group.
+\end{thm}
+\begin{definition}
+	Given a set $X$ and a collection of reduced words $w_i$, $i\in I$ in $\Free(X)$. Then $\langle X| w_i,i\in I\rangle =\Free(X)/N$ with $N$ is the smallest normal subgroups of $\Free(X)$ which contains all $w_i,i\in I$. If a group $G$ is isomorphic to $\langle X|w_i,i\in I\rangle$. Then any isomorphism $\langle X|w_i,i\in I\rangle\to G$ is called a presentation of $G$.
+\end{definition}
+\begin{example}
+	$D_\infty=\rangle a,b|a^{2},b^2\langle=\rangle c,d|d^2,dcd^{-1}c\rangle$.
+\end{example}
+\begin{definition}
+	$G$ is called finitely presented if it has a presentation of finitely generators and finitely many relations.
+\end{definition}
+\begin{thm}
+	Any finite group is finitely presented.
+\end{thm}
+\begin{proof}
+	$G$ finite. $G\cong \Free(X)/N$ where $X$ is finite. So $N$ is of finite index in $\Free(X)$.
+\end{proof}
+\begin{thm}
+	A subgroup of finite index in a finitely generated group is finitely generated. 
+\end{thm}
+\begin{example}
+	$\Z^2\cong\langle a,b|a^{-1}b^{-1}ab\rangle =\Free(\{a,b\})/N$ but $N$ is not finitely generated as $N=[\Free(a,b),\Free(a,b)]$
+ \end{example}
+Goal: To prove the Nielsen-Schreier theorme. A subgroup of any free group is free.
+
+$G$ a group. $X$ a generating set, $H\leq G$. Let $S$ be the set of choice of left coset representatives for $H$ in $G\st e\in S$.
+
+For any $g\in G$, there is a unique $\bar g\in S\st gH=\bar gH$.
+
+\begin{note}
+	$\bar{(\bar{g})}=\bar g$, $\bar{g_1g_2}=\bar{g_1\bar{g_2}}$. For $s\in S$, $\bar s=s$ and $\forall g$, $\bar g^{-1}g\in H$ and for all $h\in H$, $\bar{h}=e$,
+
+Given $g\in G$, $s\in S$, there is unique $t\in S\st t^{-1}gs\in H$ with $t=\bar{gs}$. We denote $t^{-1}gs$ by $h(g,s)=(\bar{gs})^{-1}(gs)$; i.e., $h(g,s)=t^{-1}gs$.
+
+Here, $h(g,s)^{-1}=s^{-1}g^{-1}t=h(g^{-1},t)$.
+\end{note}
+\begin{prop}
+	Let $Y=\{h(x,s):x\in X,s\in S\}$, then $Y'=\{h(x^{-1},s):x\in X,s\in S\}$. Thus, $H=\langle Y\rangle$.
+\end{prop}
+\begin{definition}
+	Let $G=\Free(X)$, $H\leq G$. A set $S$ is called a Schreier set for $H$ if it is a set of left coset representatives for $H$ in $G$ and if a reduced word $x_1^{\epsilon_1}\mu\in S$, then also $\mu\in S$. (with any reduced word in $S$, all its final sequences are in $S$). 
+\end{definition}
+
+
+
+
+\section{Feb. 25}
+\section{Feb. 28}
+\section{Mar. 2}
+We constructs $2$ non-abelian group of order $p^3$, where $p$ is an odd prime. One is of exponent $p$, the other is of exponent $p^2$
+
+$\Aut(D_\infty)\cong D_\infty$, $\Out(D_\infty)=\Z/2/Z$, and $\Inn(D_\infty)\cong D_\infty$.
+
+\begin{note}
+If $H$ and $K$ are characteristic in $H\times K$, then $\Aut(H\times K)\cong \Aut (H)\times \Aut(K)$ as $\eta(h,k)=\phi(h)\psi(k)$. 	
+\end{note}
+\begin{example}[Non-example]
+	$G=(\Z/p\Z)^k$, $\Aut(G)=\GL_k(\Z/p\Z)\supset \Aut(\Z/p\Z)\times...\times \Aut(\Z/p\Z) \cong (\Z/p\Z)^\times\times ...\times (\Z/p\Z)^\times$.
+\end{example}
+$\Aut(\Z/n\Z)=(\Z/n\Z)^\times=\{a+n\Z:\gcd(a,n)=1\}$ where $\phi_a(k)=ak$.
+\begin{example}
+	If $n=p_1^{k_1}...p_s^{k_s}$, then $\Z/n\Z\cong \Z/p_1^{k_1}\Z\times ...\times \Z/p_s^{k_s}\Z$ and each factor is characteristic, so $\Aut(\Z/n\Z)\cong \Aut(\Z/p_1^{k_1}\Z)\times...\times \Aut(\Z/p_s^{k_s}\Z)$.
+\end{example}
+\begin{note}
+	What is $\Aut(\Z/p^k\Z)$? $|(\Z/p^k\Z)^\infty|=p^k-p^{k-1}$.
+\end{note}
+\begin{definition}
+	The Euler's function $\phi(n)=|(\Z/n\Z)^\infty|$. We have $\phi(p_1^{k_1}...p_s^{k_s})=\phi(p_1^{k_1})...\phi(p_s^{k_s})$.
+	
+	If $\gcd(m,n)=1$, then $\phi(mn)=\phi(m)\phi(n)$.
+\end{definition}
+\begin{lem}
+	1. If $k\geq 2$, then $\bar{5}\in(\Z/2^k\Z)^\times$ has order $2^{k-2}$.
+	
+	2. If $k\geq 1$, then $p+1\in (\Z/p^k\Z)^\times $ has order $p^{k-1}$.
+\end{lem}
+\begin{proof}
+	2. if $K=1$, then $p+1=1$ has order $p^{k-1}$ in $(\Z/p^k\Z)^\times$
+	
+	Assume $p+1$ has order $p^{k-1}$ in $(\Z/p^k\Z)^\times$. Then $(p+1)^{pk-1}=1+Ap^k$ and assume $p\not| A$.
+	
+	Look at $(p-1)^{p^k}=[(p+1)^{p^{k-1}}]^p=(1+Ap^k)^p=1+\binom{p}{1}Ap^k+\binom{p}{2}A^2p^{2k}+...=1+p^{k+1}B$ for some $p\not|B$.
+	
+	From this, we have $(1+p)^{p^{k-1}}\equiv 1(\mod p^k)$ and $(1+p)^{p^{k-2}}=1+Ap^{k-1}\not\equiv 1(\mod p^k)$ since $p\not| A$.
+\end{proof}
+\begin{cor}
+$(\Z/2^k\Z)^\times=\begin{cases}
+	1&k=1\\\Z/2\Z&k=2\\\Z/2^{k-2}\Z\times\Z/2\Z=\langle \bar 5\rangle\times \langle\bar{-1}&k\geq 3
+\end{cases}$	
+\end{cor}
+What about $(\Z/p\Z)^\times$?
+\begin{thm}
+	If $F$ is a field and $A\subseteq F^\times$ is a finite subgroup then $A$ is cclic.
+\end{thm}
+\begin{proof}
+	Let $N$ be the exponent of $A$. So, $a^N=1$ for all $a\in A$.
+	
+	Recall that a polynomial of degree $k$ has at most $k$ roots in a field $x^N-1$ is of degree $N$ so $|A|\leq N$.
+	
+	$A$ abelian of exponent $N$, so $A$ has an element $a$ of order $N$ so $|A|\geq |\langle a \rangle|=N$. So, $a=\langle a\rangle$.
+\end{proof}
+\begin{cor}
+$(\Z/p\Z)^\times$ is cyclic of order $p-1$; i.e., there is a $a\in \Z\st a,a^2,...,a^{p-1}$ are all distinct $\mod p$. Any such $a$ is called a primitive root module $p$. 	
+\end{cor}
+\begin{thm}
+	$(\Z/p^n\Z)^\infty$ is cyclic for odd primes $p$, $n\geq 1$.
+\end{thm}
+\begin{proof}
+	$(\Z/p\Z)^\times\twoheadrightarrow(\Z/p\Z)^\times$ and any $b$ which maps to a generator has order divisible by $p-1$ so some power of $b$ has order $(p-1)$. Here, $(\Z/p^n\Z)^\times$ has an element $u$ of power $p-1$ and an element $w=1+p$ of order $p^{n-1}$.
+	
+	So, $uw$ has order $p^{n-1}(p-1)=\phi(p^n)$. So, $(\Z/p^n\Z)^\times=\langle uw\rangle$.
+\end{proof}
+\begin{thm}[Euler]
+	If $\gcd(a,n)=1$, then $a^{\phi(n)}\equiv 1(\mod n)$. Here, $|(\Z/n\Z)^\times|=\phi(n)$.
+\end{thm}
+\begin{example}
+	$(\Z/20\Z)^\times\cong(\Z/4\Z\times\Z/5\Z)^\times\cong\Z/2\Z\times\Z/4\Z$. Notice $\phi(20)=8$.
+\end{example}
+\begin{definition}
+	A representation of a group $G$ is a homomorphism $\phi:G\to \Aut(M)$ where $\Aut(M)$ are ``symmetries'' (or ``automorphism'') of some sort of object. A presentation is faithful if $\phi$ is injective.
+\end{definition}
+\begin{example}
+	$M$ a vector space over a field.
+	
+	$\phi:G\to GL(M)$ where $GL(M)$ is the group of all invertible linear maps $M\to M$ are linear representations.
+\end{example}
+\begin{example}
+	$M$ is a metric space, then $\Aut(M)$ are isometries of $M$.
+\end{example}
+\begin{example}
+	Permutation representations is $G\to\Sym(X)=S(X)$ where $S(X)$ is the group of all permutations of $X$.
+\end{example}
+\section{Mar. 4}
+\begin{definition}
+	
+\end{definition}
+\end{document}
