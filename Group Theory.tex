@@ -1389,6 +1389,40 @@ $(\Z/p\Z)^\times$ is cyclic of order $p-1$; i.e., there is a $a\in \Z\st a,a^2,.
 \end{example}
 \section{Mar. 4}
 \begin{definition}
+	A \emph{permutation representation} of a group $G$ on a set $X$ is a homomorphism $\pi:G\to \Sym(X)$. $\Sym(X)=S(X)$ is the permutation of $X$. 
 	
+	We call a representation faithful if it is injective.
 \end{definition}
+\begin{definition}
+	Given a representation $\pi:G\to S(X)$, we define a function $\star:G\times X\to X$ ($(g,x)\to g\star x$) by $g\star x=\pi(g)(x)$.
+	
+	It has 2 properties:
+	\begin{enumerate}
+		\item $g\star(h\star x)=(gh)\star x$	
+		\item $e\star x=x$
+	\end{enumerate}
+\end{definition}
+\begin{proof}[Proof of property 1]
+	We have $$g\star(h\star x)=g\star(\pi(h)(x))=\pi(g)(\pi(h))x=\pi(gh)(x)=(gh)\star x$$
+\end{proof}
+\begin{definition}
+	Any function $\star:G\times X\to X$ with properties 1 and 2 is called a \emph{left group action} of $G$ on $X$.
+\end{definition}
+
+Conversely, let $\star:G\times X\to X$ be an action of $G$ on $X$.
+
+For $g\in G$, define $L_g:X\to X$ by $x\mapsto g\star x$.
+
+Then, by 1, we have $L_g\circ L_h=L_{gh}$ and by 2, we have $L_e=id$; in particular, $L_g\circ L_{g^{-1}}=L_{gg^{-1}}=L_e=id=L_{g^{-1}}=L_g$.
+
+So, each $L_g$ is a bijection. Therefore, $\pi:G\to S(X)$ by $g\to L_g$ is a homomorphism and we get a permutation representation.
+
+We thus conclude that permutation representation and actions are essentially the same thing.
+\begin{note}
+	Let $G$ act on $X$. We write $gx$ instead of $g\star x$ whenever there are no confusions.
+\end{note}
+\begin{definition}
+	For $s\in X$, the \emph{orbit} of $s$ is the set $O(s)=\{gs:g\in G\}$.
+\end{definition}
+
 \end{document}
