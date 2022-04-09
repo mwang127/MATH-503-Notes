@@ -1352,7 +1352,7 @@ Then, $[G,G]\subseteq \ker f$.
 	$G$ is \emph{perfect} if $G=[G:G]$;i.e., $G^{ab}=\{e\}$.
 \end{definition}
 \begin{cor}
-	$G$ is simple (has only trivial normal proper subgroup) iff $G$ is abelian or perfect.
+	If $G$ is non-abelian and) simple, then it is perfect.
 \end{cor}
 \begin{definition}
 	$A,b$ subsets of $G$. Then $[a,b]=\langle[a,b]:a\in A, b\in B\rangle$.
@@ -1938,4 +1938,52 @@ Recall that a finite $p$-group is a group of order power of $p$.
 	
 	So, we get at least $(9-1)\cdot 16=8\cdot 16=128$ elements of order power of 3. But then, there would only be $16$ elements left. So, there is at most 1 sylow $2$ group in $G$. But this cannot be, as it will have to be normal in $G$. So, by reductio, $G$ is not simple. 
 \end{proof}
+
+\section{Apr. 8}
+\begin{definition}
+	Two (sub)normal series, $G_0=\{e\}\subseteq G_1\subseteq ...\subseteq G_n=G$ and $H_0=\{H\}\subseteq H_1\subseteq ...\subseteq H_m=G$ are \emph{equivalent} if $m=n$ and there is a bijection $f:\{1,2,...,n\}\to\{1,2...,n\}\st G_i/G_{i-1}\cong H_{f(i)}/H_{f(i)-1}$ for $i=1,...,n$. Where $G_i/G_{i-1}$ are successive quotients.
+\end{definition}
+\begin{thm}[Shreier's Refinement Theorem]
+	Any two (sub)mormal series, $\{e\}=G_0\subseteq G_1\subseteq ...\subseteq G_n=G$ and $\{e\}=H_0\subseteq H_1\subseteq ...\subseteq H_m=G$ have equivalent refinements.
+	
+	Furthermore, if the series are proper, then the refinements can be choosen proper.
+\end{thm}
+\begin{proof}
+	Idea: Between $G_{i-1}$ and $G_i$ enter $G_{i-1}(G_i\cap H_j)$, $i=1,...,n$; $H_{i-1}$ and $H_i$ enter $H_{i-1}(H_i\cap G_j)$.
+	
+	Note that any integer $j$ for $0\leq j\leq mn$ can be written in a unique way as $j=(s-1)m+(g-1)$ with $1\leq s\leq m$ and $1\leq t\leq n$ (Division algorithm by $m$). So, we can identify $(s,t)\rightleftarrows j=(s-1)m+(t-1)$.
+	
+	Define $S_j=G_{s-1}(G_s\cap H_t)$. If $t-1\not= 0$, then $j-1=(s-1)+(t-2)$ so $S_{j-1}=G_{s-1}(G_s\cap H_{t-1})$ and $S_{j-1}$ is a normal subgroup of $S_{j}$. If this is a normal series, then $S_j\unlhd G$ for all $j$. If $t=m$, then $S_j=G_s$.
+	\begin{equation*}
+		\begin{aligned}
+	S_j/S_{j-1}&=(G_{s-1}(G_s\cap H_t))/(G_{s-1}(G_S\cap H_{t-1}))\\
+	&\cong (G_s\cap H_t)/(G_{s-1}\cap G_s\cap H_t)(G_s\cap H_{t-1})\\
+	&= (G_s\cap H_t)/(G_{s-1}\cap H_t)(G_s\cap H_{t-1})
+		\end{aligned}
+	\end{equation*}
+	If $t-1=0$, then $t-1=(s-2)m+(n-1)$, so $S_{j-1}=G_{s-2}(G_{s-1}\cap H_{m})=G_{s-1}$.
+
+	\begin{equation*}
+		\begin{aligned}
+	S_j/S_{j-1}&=(G_{s-1}(G_s\cap H_1))/G_{s-1}\\
+	&\cong (G_s\cap H_1)/(G_{s-1}\cap G_s\cap H_t)\\
+	&= (G_s\cap H_1)/(G_{s-1}\cap H_1)(G_s\cap H_{0})
+		\end{aligned}
+	\end{equation*}
+
+	Any $i$, $0\leq i\leq mn$, can be written uniquely as $i=(t-1)n+(s-1)$ where $1\leq t\leq m$ and $1\leq s\leq n$.
+	
+	Define $T_i=H_{t-1}(H_t\cap G_s)=H_{t-1}(H_t\cap G_s)$. So, $T_{i}/T_{i-1}\cong (H_t\cap G_s)/(H_{t-1}\cap G_s)(H_t\cap G_{s-1})$. Take $\pi(j)=i=(t-1)n+(s-1)$, then $S_j/S_{j-1}\cong T_{\pi j}/T_{\pi j}-1$.
+\end{proof}
+\begin{definition}
+	A subnormal series which is proper and has no non-trivial proper refinements is called a \emph{composition series} for $G$.
+	
+	Replacing subnormal by normal in the above definition defines \emph{chief series}.
+\end{definition}
+\begin{note}
+	$\{e\}=G_0\subseteq G+1\subseteq ...\subseteq G_1$ subnormal is a composition series iff each successive quotient $G_i/G_{i-1}$ is a simple group. 
+	
+	A normal series is a chief series iff $G_i/G_{i-1}\unlhd G/G_{i-1}$ and $G_i/G_{i-1}$ is a minimal normal subgroup in $G/G_{i-1}$.	
+\end{note}
+
 \end{document}
