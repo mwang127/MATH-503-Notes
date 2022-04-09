@@ -4,7 +4,10 @@ This is a collection of notes for MATH 503 Algebra I at Binghamton University in
 # License
 Distributed under APACHE-2.0. See `LICENSE.txt` for more information.
 
-# Acknowledge
+# Disclaimer
+These notes are expositional and cursory in nature. While we strive to include as few mistakes as possible, please note that we do not guarentee the accuracy in the contents.
+
+# Acknowledgement
 A number of notetakers contributed to this project:
   * Minxin Wang
   * Zhongyuan Zhao
