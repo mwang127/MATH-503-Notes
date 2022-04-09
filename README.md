@@ -1,5 +1,5 @@
 # MATH-503-Notes
-This is a collection of notes for MATH 503 Algebra I at Binghamton University in Spring 2022. These notes are publicisezed under the permission of Prof. Marcin Mazur.
+This is a collection of notes for MATH 503 Algebra I at Binghamton University in Spring 2022. These notes are publicized under the permission of Prof. Marcin Mazur.
 
 # License
 Distributed under APACHE-2.0. See `LICENSE.txt` for more information.
